@@ -1,0 +1,27 @@
+name: CI
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+
+jobs:
+  lint-and-test:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: TODO: Add runtime setup
+        run: echo "Add Node/Python setup as needed"
+
+      - name: TODO: Add install
+        run: echo "Add dependency install command"
+
+      - name: TODO: Add lint
+        run: echo "Add lint command"
+
+      - name: TODO: Add tests
+        run: echo "Add test command"
+
