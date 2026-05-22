@@ -73,6 +73,18 @@ Users input their AI tools, plans, spend, and usage context, then receive an ins
 - [ ] Public view excludes PII.
 - [ ] Open Graph + Twitter card metadata.
 
+### R7. Guaranteed UX Enhancements (Committed)
+- [ ] **Quick Start Presets** on homepage form:
+  - [ ] Solo founder preset
+  - [ ] 5-seat engineering team preset
+  - [ ] 20-seat mixed team preset
+- [ ] **Priority Action Queue** on results page:
+  - [ ] Top recommendations sorted by highest monthly savings first
+  - [ ] Tie-breaker by implementation ease (quick wins first)
+- [ ] **Savings Confidence Meter** per recommendation:
+  - [ ] High / Medium / Low confidence label
+  - [ ] Assumption note shown for Medium/Low confidence items
+
 ## 6) Step-by-Step Implementation Checklist (Execution Order)
 ### Phase A: Setup and Foundations
 - [ ] Initialize Next.js + TypeScript + Tailwind + shadcn/ui project.
@@ -94,6 +106,7 @@ Users input their AI tools, plans, spend, and usage context, then receive an ins
 - [ ] Implement audit submit flow and result rendering.
 - [ ] Build hero savings section + per-tool breakdown UI.
 - [ ] Implement conditional CTA blocks by savings band.
+- [ ] Add Quick Start Presets to auto-fill realistic baseline stacks.
 
 ### Phase D: AI Summary + Lead Flow
 - [ ] Implement summary API route with Anthropic call.
@@ -125,6 +138,11 @@ Users input their AI tools, plans, spend, and usage context, then receive an ins
 - [ ] Finalize entrepreneurial docs: `GTM.md`, `ECONOMICS.md`, `USER_INTERVIEWS.md`, `LANDING_COPY.md`, `METRICS.md`.
 - [ ] Validate git history across 5+ distinct days in 7-day window.
 
+### Phase H: Guaranteed Enhancements Delivery
+- [ ] Add Priority Action Queue section on `/audit/[id]`.
+- [ ] Add confidence labels (High/Medium/Low) on each recommendation row/card.
+- [ ] Ensure confidence logic aligns with `AUDIT_LOGIC_POLICY.md`.
+
 ## 7) Expected Output by Savings Band
 - [ ] **High savings (> $500/mo):** strong optimization report + consultation CTA.
 - [ ] **Medium savings ($100-$500/mo):** prioritized action plan + soft consultation CTA.
@@ -141,4 +159,12 @@ Users input their AI tools, plans, spend, and usage context, then receive an ins
 - [ ] Share page is public, clean, and PII-free.
 - [ ] At least 5 audit-engine tests pass.
 - [ ] CI is green on latest `main` commit.
+- [ ] Quick Start Presets work and correctly prefill the form.
+- [ ] Priority Action Queue appears with correctly sorted top actions.
+- [ ] Confidence labels are visible and consistent with recommendation assumptions.
 
+## 9) Additional Features (Optional, End of Project)
+- [ ] 30-day re-audit reminder email opt-in.
+- [ ] Report diff view (current audit vs previous audit).
+- [ ] PDF export for stakeholder sharing.
+- [ ] Benchmark mode (spend per developer vs peer range).
