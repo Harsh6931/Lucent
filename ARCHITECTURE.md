@@ -57,7 +57,15 @@ flowchart TD
 - `created_at` (timestamp)
 
 ## Why This Stack
-`TODO`
+- **Next.js (App Router, TypeScript)**: Single-repo setup simplifies routing, API handlers, and React frontend code. Next.js Server Components enable server-side database querying and SEO dynamic metadata compilation seamlessly, while TypeScript prevents runtime type inconsistencies.
+- **Supabase**: Fully managed PostgreSQL service with a direct API footprint. Allows schema evolution, rapid relational data querying, and bypasses local DB infrastructure maintenance.
+- **Tailwind CSS & Vanilla CSS**: Delivers responsive UI components without bloated bundle sizes. Keeps visual styles coherent.
+- **Resend**: A developer-friendly SMTP transactional mail service with simple REST APIs, providing immediate confirmation emails to captured leads.
+- **Vitest**: Lightweight test-runner that compiles TypeScript test specs without setup overhead, executing in under 1.5 seconds.
 
 ## What I’d Change for 10k Audits/Day
-`TODO`
+- **Redis Caching**: Deploy an Upstash or local Redis instance to cache public report responses (`/api/report/[publicId]`), bypassing database queries for read-heavy public views.
+- **Message Queue for Asynchronous Operations**: Offload Resend transactional email deliveries and AI summary API requests to a Redis-backed queue (e.g., BullMQ or AWS SQS) to keep Next.js HTTP responses immediate and prevent Vercel Serverless timeout limits.
+- **Rate-Limiting at the Edge**: Implement Cloudflare Edge rules or Next.js Middleware with Upstash rate-limiters on public-facing endpoints (`POST /api/audit`, `POST /api/summary`, and `POST /api/lead`) to prevent API abuse.
+- **PostgreSQL Connection Pooling**: Enable PgBouncer or Supabase connection pooling to avoid exhausting DB connection pools during concurrent execution spikes.
+- **On-the-Fly Dynamic Open Graph Generation**: Utilize `@vercel/og` (Satori) to dynamically construct meta-image cards on the server using the audit's actual savings data (e.g., displaying a personalized graph showing "$Y/year saved" in social cards).
