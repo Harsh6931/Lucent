@@ -1,6 +1,6 @@
 "use client";
 
-import { useMemo } from "react";
+import { useEffect, useMemo, useState } from "react";
 import { AiSummaryCard } from "@/components/audit/ai-summary-card";
 import { LeadCaptureForm } from "@/components/audit/lead-capture-form";
 import { PriorityActionQueue } from "@/components/audit/priority-action-queue";
@@ -11,51 +11,63 @@ import { SiteHeader } from "@/components/layout/site-header";
 import { Recommendation } from "@/types/audit";
 
 type AuditPageProps = { params: { id: string } };
-
-const SAMPLE_RECOMMENDATIONS: Recommendation[] = [
-  {
-    tool: "GitHub Copilot",
-    currentPlan: "Business",
-    action: "Move 2 seats to Individual",
-    reason: "Two seats have low usage and can shift to lower-cost plans without blocking coding workflows.",
-    currentMonthly: 95,
-    projectedMonthly: 71,
-    monthlySavings: 24,
-    confidence: "high",
-    implementationEffort: "quick"
-  },
-  {
-    tool: "Claude",
-    currentPlan: "Team",
-    action: "Downgrade to Pro for 3 users",
-    reason: "Team features are underutilized for current collaboration pattern and seat count.",
-    currentMonthly: 150,
-    projectedMonthly: 90,
-    monthlySavings: 60,
-    confidence: "medium",
-    implementationEffort: "moderate"
-  },
-  {
-    tool: "OpenAI API",
-    currentPlan: "Usage-based",
-    action: "Optimize model mix and route bulk workloads",
-    reason: "Routing non-critical workloads to lower-cost models reduces monthly API burn.",
-    currentMonthly: 120,
-    projectedMonthly: 85,
-    monthlySavings: 35,
-    confidence: "medium",
-    implementationEffort: "quick"
-  }
-];
+type AuditPayload = {
+  id: string;
+  publicId: string;
+  totalMonthlySpend: number;
+  totalMonthlySavings: number;
+  totalAnnualSavings: number;
+  auditPayload: { output: { recommendations: Recommendation[] } };
+};
 
 export default function AuditResultPage({ params }: AuditPageProps) {
-  const totalMonthlySavings = useMemo(
-    () => SAMPLE_RECOMMENDATIONS.reduce((sum, item) => sum + item.monthlySavings, 0),
-    []
-  );
-  const totalAnnualSavings = totalMonthlySavings * 12;
+  const [data, setData] = useState<AuditPayload | null>(null);
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    async function loadAudit() {
+      try {
+        setLoading(true);
+        const res = await fetch(`/api/audit/${params.id}`);
+        const json = await res.json();
+        if (!res.ok) throw new Error("fetch failed");
+        setData(json.data);
+      } finally {
+        setLoading(false);
+      }
+    }
+    loadAudit();
+  }, [params.id]);
+
+  const recommendations = useMemo(() => data?.auditPayload?.output?.recommendations ?? [], [data]);
+  const totalMonthlySavings = data?.totalMonthlySavings ?? 0;
+  const totalAnnualSavings = data?.totalAnnualSavings ?? 0;
   const highSavings = totalMonthlySavings > 500;
   const lowSavings = totalMonthlySavings < 100;
+
+  if (loading) {
+    return (
+      <div className="min-h-screen bg-slate-50 text-slate-900">
+        <SiteHeader />
+        <main className="mx-auto w-full max-w-6xl px-4 py-8 sm:px-6 lg:px-8">
+          <p className="text-sm text-slate-600">Loading audit...</p>
+        </main>
+        <SiteFooter />
+      </div>
+    );
+  }
+
+  if (!data) {
+    return (
+      <div className="min-h-screen bg-slate-50 text-slate-900">
+        <SiteHeader />
+        <main className="mx-auto w-full max-w-6xl px-4 py-8 sm:px-6 lg:px-8">
+          <p className="text-sm text-red-600">Audit not found.</p>
+        </main>
+        <SiteFooter />
+      </div>
+    );
+  }
 
   return (
     <div className="min-h-screen bg-slate-50 text-slate-900">
@@ -63,11 +75,9 @@ export default function AuditResultPage({ params }: AuditPageProps) {
       <main className="mx-auto grid w-full max-w-6xl gap-5 px-4 py-8 sm:px-6 lg:px-8">
         <p className="text-xs font-medium uppercase tracking-wide text-slate-500">Audit ID: {params.id}</p>
         <SavingsHero totalMonthlySavings={totalMonthlySavings} totalAnnualSavings={totalAnnualSavings} />
-        <PriorityActionQueue items={SAMPLE_RECOMMENDATIONS} />
-        <RecommendationTable items={SAMPLE_RECOMMENDATIONS} />
-        <AiSummaryCard
-          summary="Your current stack can likely save around $119 per month by right-sizing collaboration plans and reducing API waste in non-critical workflows. The highest-confidence changes are lightweight and can be implemented quickly without reducing day-to-day output quality."
-        />
+        <PriorityActionQueue items={recommendations} />
+        <RecommendationTable items={recommendations} />
+        <AiSummaryCard summary="Audit generated. AI personalized summary API will be connected in next phase." fallbackUsed />
 
         <section className="rounded-lg border border-slate-200 bg-white p-5 shadow-sm sm:p-6">
           <h2 className="text-lg font-semibold text-slate-900">Next Best Step</h2>
@@ -88,9 +98,10 @@ export default function AuditResultPage({ params }: AuditPageProps) {
           ) : null}
         </section>
 
-        <LeadCaptureForm />
+        <LeadCaptureForm auditId={data.id} />
       </main>
       <SiteFooter />
     </div>
   );
 }
+

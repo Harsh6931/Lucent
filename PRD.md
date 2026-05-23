@@ -20,12 +20,12 @@ Users input their AI tools, plans, spend, and usage context, then receive an ins
 ## 4) Tech Stack (Selected)
 - [x] **App framework:** Next.js 15 (App Router) + TypeScript
 - [ ] **UI:** Tailwind CSS + shadcn/ui
-- [ ] **Forms/validation:** React Hook Form + Zod
-- [ ] **Database/backend:** Supabase (Postgres)
+- [x] **Forms/validation:** React Hook Form + Zod
+- [x] **Database/backend:** Supabase (Postgres)
 - [ ] **Email:** Resend
 - [ ] **AI summary:** Anthropic API (fallback to templated summary)
 - [ ] **Abuse protection:** Cloudflare Turnstile (or honeypot + rate limit fallback)
-- [ ] **Testing:** Vitest + Testing Library
+- [x] **Testing:** Vitest + Testing Library
 - [ ] **Quality:** ESLint + Prettier
 - [ ] **Deployment:** Vercel
 
@@ -42,14 +42,14 @@ Users input their AI tools, plans, spend, and usage context, then receive an ins
   - Windsurf or v0
 - [x] Per tool: plan, monthly spend, seats.
 - [x] Global: team size, primary use case.
-- [ ] Persist form state across reloads.
+- [x] Persist form state across reloads.
 
 ### R2. Audit Engine
-- [ ] Deterministic, rule-based engine (no AI for core math).
-- [ ] Evaluate plan fit, same-vendor downgrade, alternative switch, and credit opportunity.
-- [ ] Output per-tool recommendation with reason and savings.
-- [ ] Output total monthly and annual savings.
-- [ ] Honest handling for low/no-savings results.
+- [x] Deterministic, rule-based engine (no AI for core math).
+- [x] Evaluate plan fit, same-vendor downgrade, alternative switch, and credit opportunity.
+- [x] Output per-tool recommendation with reason and savings.
+- [x] Output total monthly and annual savings.
+- [x] Honest handling for low/no-savings results.
 
 ### R3. Audit Results Page
 - [x] Hero values: total monthly + annual savings.
@@ -64,12 +64,12 @@ Users input their AI tools, plans, spend, and usage context, then receive an ins
 
 ### R5. Lead Capture + Storage
 - [x] Capture email (+ optional company/role/team size).
-- [ ] Store in real backend DB.
+- [x] Store in real backend DB.
 - [ ] Send transactional confirmation email.
 - [ ] Add abuse protection (Turnstile/honeypot/rate limit).
 
 ### R6. Shareable Result URL
-- [ ] Unique public URL per audit.
+- [x] Unique public URL per audit.
 - [x] Public view excludes PII.
 - [ ] Open Graph + Twitter card metadata.
 
@@ -89,20 +89,20 @@ Users input their AI tools, plans, spend, and usage context, then receive an ins
 ### Phase A: Setup and Foundations
 - [x] Initialize Next.js + TypeScript + Tailwind + shadcn/ui project.
 - [ ] Configure linting/formatting (ESLint + Prettier).
-- [ ] Define TypeScript domain models and Zod schemas.
+- [x] Define TypeScript domain models and Zod schemas.
 - [x] Add environment variable contract and `.env.example`.
 
 ### Phase B: Pricing and Audit Core
 - [x] Create centralized pricing source file(s) mapped to official vendor pages.
 - [ ] Write `PRICING_DATA.md` with URLs and verification dates.
-- [ ] Implement audit calculation engine as pure functions.
-- [ ] Implement recommendation reason templates.
-- [ ] Write minimum 5 automated audit-engine tests.
-- [ ] Document tests in `TESTS.md`.
+- [x] Implement audit calculation engine as pure functions.
+- [x] Implement recommendation reason templates.
+- [x] Write minimum 5 automated audit-engine tests.
+- [x] Document tests in `TESTS.md`.
 
 ### Phase C: Product UX (Form -> Result)
 - [x] Build spend input form UI for all required tools/plans.
-- [ ] Add client-side persistence (local storage).
+- [x] Add client-side persistence (local storage).
 - [x] Implement audit submit flow and result rendering.
 - [x] Build hero savings section + per-tool breakdown UI.
 - [x] Implement conditional CTA blocks by savings band.
@@ -113,23 +113,23 @@ Users input their AI tools, plans, spend, and usage context, then receive an ins
 - [ ] Add timeout/retry policy and deterministic fallback.
 - [ ] Document prompts/fallback strategy in `PROMPTS.md`.
 - [x] Build lead capture form (post-results only).
-- [ ] Persist leads and audits in Supabase.
+- [x] Persist leads and audits in Supabase.
 - [ ] Integrate transactional email via Resend.
 
 ### Phase D2: Database + Backend Implementation (Next Priority)
 - [x] Prepare Supabase env var contract (`NEXT_PUBLIC_SUPABASE_URL`, `NEXT_PUBLIC_SUPABASE_ANON_KEY`, `SUPABASE_SERVICE_ROLE_KEY`).
 - [x] Add SQL migration for `audits`, `leads`, and optional `events` tables.
 - [x] Add backend data access layer (`lib/db/*`) with typed insert/select helpers.
-- [ ] Implement `POST /api/audit` (persist audit and return `{id, public_id}`).
-- [ ] Implement `GET /api/audit/:id` (private audit fetch for result page).
-- [ ] Implement `POST /api/lead` (persist lead linked to `audit_id`).
-- [ ] Implement `GET /api/report/:publicId` (PII-free public payload).
-- [ ] Add server-side validation (Zod) for all API request bodies.
-- [ ] Add error model + response codes (400 validation, 404 not found, 429 rate-limited, 500 unexpected).
-- [ ] Add basic abuse protection on APIs (honeypot or IP rate limit).
+- [x] Implement `POST /api/audit` (persist audit and return `{id, public_id}`).
+- [x] Implement `GET /api/audit/:id` (private audit fetch for result page).
+- [x] Implement `POST /api/lead` (persist lead linked to `audit_id`).
+- [x] Implement `GET /api/report/:publicId` (PII-free public payload).
+- [x] Add server-side validation (Zod) for all API request bodies.
+- [x] Add error model + response codes (400 validation, 404 not found, 429 rate-limited, 500 unexpected).
+- [x] Add basic abuse protection on APIs (honeypot or IP rate limit).
 
 ### Phase E: Public Report and Growth Loop
-- [ ] Generate unique `public_id` per audit.
+- [x] Generate unique `public_id` per audit.
 - [x] Create public report route (`/r/[publicId]`) with PII stripping.
 - [ ] Implement Open Graph + Twitter metadata for share URLs.
 
@@ -169,14 +169,14 @@ Users input their AI tools, plans, spend, and usage context, then receive an ins
 - [ ] Personalized summary works with graceful fallback.
 - [ ] Leads are stored and confirmation emails send successfully.
 - [x] Share page is public, clean, and PII-free.
-- [ ] At least 5 audit-engine tests pass.
+- [x] At least 5 audit-engine tests pass.
 - [ ] CI is green on latest `main` commit.
 - [x] Quick Start Presets work and correctly prefill the form.
 - [x] Priority Action Queue appears with correctly sorted top actions.
 - [ ] Confidence labels are visible and consistent with recommendation assumptions.
-- [ ] Audit and lead records are created in Supabase for successful flows.
-- [ ] Public report API never exposes email/company/role fields.
-- [ ] API routes are validated, typed, and return stable error responses.
+- [x] Audit and lead records are created in Supabase for successful flows.
+- [x] Public report API never exposes email/company/role fields.
+- [x] API routes are validated, typed, and return stable error responses.
 
 ## 9) Additional Features (Optional, End of Project)
 - [ ] 30-day re-audit reminder email opt-in.

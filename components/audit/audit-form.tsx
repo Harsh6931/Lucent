@@ -1,6 +1,6 @@
 "use client";
 
-import { useMemo, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 import { useRouter } from "next/navigation";
 import { PRIMARY_USE_CASES, QUICK_PRESETS, TOOL_OPTIONS } from "@/lib/constants/audit-config";
 import { AuditInput, ToolInput, ToolKey } from "@/types/audit";
@@ -18,6 +18,19 @@ export function AuditForm() {
     primaryUseCase: "coding",
     tools: []
   });
+  const [submitting, setSubmitting] = useState(false);
+  const [error, setError] = useState<string | null>(null);
+
+  useEffect(() => {
+    const raw = window.localStorage.getItem(STORAGE_KEY);
+    if (!raw) return;
+    try {
+      const parsed = JSON.parse(raw) as AuditInput;
+      if (parsed?.tools?.length) setForm(parsed);
+    } catch {
+      // ignore malformed drafts
+    }
+  }, []);
 
   const totalSpend = useMemo(
     () => form.tools.reduce((sum, tool) => sum + Number(tool.monthlySpend || 0), 0),
@@ -54,9 +67,24 @@ export function AuditForm() {
     }));
   }
 
-  function submitAudit() {
-    window.localStorage.setItem(STORAGE_KEY, JSON.stringify(form));
-    router.push("/audit/local-preview");
+  async function submitAudit() {
+    try {
+      setSubmitting(true);
+      setError(null);
+      window.localStorage.setItem(STORAGE_KEY, JSON.stringify(form));
+      const res = await fetch("/api/audit", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(form)
+      });
+      const json = await res.json();
+      if (!res.ok || !json?.data?.id) throw new Error("audit failed");
+      router.push(`/audit/${json.data.id}`);
+    } catch {
+      setError("Could not generate audit right now. Please try again.");
+    } finally {
+      setSubmitting(false);
+    }
   }
 
   return (
@@ -201,12 +229,13 @@ export function AuditForm() {
         <button
           type="button"
           onClick={submitAudit}
-          disabled={form.tools.length === 0}
+          disabled={form.tools.length === 0 || submitting}
           className="h-11 rounded-md bg-blue-600 px-5 text-sm font-semibold text-white hover:bg-blue-700 disabled:cursor-not-allowed disabled:bg-slate-300"
         >
-          Generate Audit
+          {submitting ? "Generating..." : "Generate Audit"}
         </button>
       </div>
+      {error ? <p className="mt-3 text-sm text-red-600">{error}</p> : null}
     </section>
   );
 }
