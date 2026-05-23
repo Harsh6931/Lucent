@@ -8,7 +8,7 @@ export default function HomePage() {
       <SiteHeader />
       <main>
         <section className="mx-auto w-full max-w-6xl px-4 pb-8 pt-12 sm:px-6 lg:px-8 lg:pt-16">
-          <p className="text-sm font-medium text-sky-600">AI Spend Audit For Startups</p>
+          <p className="text-sm font-medium text-blue-700">AI Spend Audit For Startups</p>
           <h1 className="mt-2 max-w-3xl text-4xl font-bold tracking-tight text-slate-900 sm:text-5xl">
             Find hidden AI tool overspend in under two minutes.
           </h1>
@@ -17,7 +17,7 @@ export default function HomePage() {
           </p>
           <a
             href="#audit-form"
-            className="mt-6 inline-flex h-11 items-center rounded-md bg-sky-500 px-5 text-sm font-semibold text-white hover:bg-sky-600"
+            className="mt-6 inline-flex h-11 items-center rounded-md bg-blue-600 px-5 text-sm font-semibold text-white hover:bg-blue-700"
           >
             Start Free Audit
           </a>
@@ -79,3 +79,4 @@ export default function HomePage() {
     </div>
   );
 }
+

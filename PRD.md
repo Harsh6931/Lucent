@@ -18,7 +18,7 @@ Users input their AI tools, plans, spend, and usage context, then receive an ins
 - Credex gets qualified, high-intent leads from verified savings opportunities.
 
 ## 4) Tech Stack (Selected)
-- [ ] **App framework:** Next.js 15 (App Router) + TypeScript
+- [x] **App framework:** Next.js 15 (App Router) + TypeScript
 - [ ] **UI:** Tailwind CSS + shadcn/ui
 - [ ] **Forms/validation:** React Hook Form + Zod
 - [ ] **Database/backend:** Supabase (Postgres)
@@ -31,7 +31,7 @@ Users input their AI tools, plans, spend, and usage context, then receive an ins
 
 ## 5) Functional Requirements (MVP)
 ### R1. Spend Input Form
-- [ ] Support tools/plans from assignment:
+- [x] Support tools/plans from assignment:
   - Cursor (Hobby/Pro/Business/Enterprise)
   - GitHub Copilot (Individual/Business/Enterprise)
   - Claude (Free/Pro/Max/Team/Enterprise/API direct)
@@ -40,8 +40,8 @@ Users input their AI tools, plans, spend, and usage context, then receive an ins
   - OpenAI API direct
   - Gemini (Pro/Ultra/API)
   - Windsurf or v0
-- [ ] Per tool: plan, monthly spend, seats.
-- [ ] Global: team size, primary use case.
+- [x] Per tool: plan, monthly spend, seats.
+- [x] Global: team size, primary use case.
 - [ ] Persist form state across reloads.
 
 ### R2. Audit Engine
@@ -52,48 +52,48 @@ Users input their AI tools, plans, spend, and usage context, then receive an ins
 - [ ] Honest handling for low/no-savings results.
 
 ### R3. Audit Results Page
-- [ ] Hero values: total monthly + annual savings.
-- [ ] Per-tool breakdown (current -> action -> savings -> reason).
+- [x] Hero values: total monthly + annual savings.
+- [x] Per-tool breakdown (current -> action -> savings -> reason).
 - [ ] Conditional CTA:
-  - [ ] Savings > $500/mo: strong Credex consultation CTA.
-  - [ ] Savings < $100/mo or optimal: honest “you’re spending well” + notify CTA.
+  - [x] Savings > $500/mo: strong Credex consultation CTA.
+  - [x] Savings < $100/mo or optimal: honest "you’re spending well" + notify CTA.
 
 ### R4. Personalized AI Summary
 - [ ] Generate ~100-word summary from audit output.
 - [ ] Graceful failure handling with fallback template.
 
 ### R5. Lead Capture + Storage
-- [ ] Capture email (+ optional company/role/team size).
+- [x] Capture email (+ optional company/role/team size).
 - [ ] Store in real backend DB.
 - [ ] Send transactional confirmation email.
 - [ ] Add abuse protection (Turnstile/honeypot/rate limit).
 
 ### R6. Shareable Result URL
 - [ ] Unique public URL per audit.
-- [ ] Public view excludes PII.
+- [x] Public view excludes PII.
 - [ ] Open Graph + Twitter card metadata.
 
 ### R7. Guaranteed UX Enhancements (Committed)
-- [ ] **Quick Start Presets** on homepage form:
-  - [ ] Solo founder preset
-  - [ ] 5-seat engineering team preset
-  - [ ] 20-seat mixed team preset
-- [ ] **Priority Action Queue** on results page:
-  - [ ] Top recommendations sorted by highest monthly savings first
-  - [ ] Tie-breaker by implementation ease (quick wins first)
-- [ ] **Savings Confidence Meter** per recommendation:
-  - [ ] High / Medium / Low confidence label
+- [x] **Quick Start Presets** on homepage form:
+  - [x] Solo founder preset
+  - [x] 5-seat engineering team preset
+  - [x] 20-seat mixed team preset
+- [x] **Priority Action Queue** on results page:
+  - [x] Top recommendations sorted by highest monthly savings first
+  - [x] Tie-breaker by implementation ease (quick wins first)
+- [x] **Savings Confidence Meter** per recommendation:
+  - [x] High / Medium / Low confidence label
   - [ ] Assumption note shown for Medium/Low confidence items
 
 ## 6) Step-by-Step Implementation Checklist (Execution Order)
 ### Phase A: Setup and Foundations
-- [ ] Initialize Next.js + TypeScript + Tailwind + shadcn/ui project.
+- [x] Initialize Next.js + TypeScript + Tailwind + shadcn/ui project.
 - [ ] Configure linting/formatting (ESLint + Prettier).
 - [ ] Define TypeScript domain models and Zod schemas.
-- [ ] Add environment variable contract and `.env.example`.
+- [x] Add environment variable contract and `.env.example`.
 
 ### Phase B: Pricing and Audit Core
-- [ ] Create centralized pricing source file(s) mapped to official vendor pages.
+- [x] Create centralized pricing source file(s) mapped to official vendor pages.
 - [ ] Write `PRICING_DATA.md` with URLs and verification dates.
 - [ ] Implement audit calculation engine as pure functions.
 - [ ] Implement recommendation reason templates.
@@ -101,24 +101,36 @@ Users input their AI tools, plans, spend, and usage context, then receive an ins
 - [ ] Document tests in `TESTS.md`.
 
 ### Phase C: Product UX (Form -> Result)
-- [ ] Build spend input form UI for all required tools/plans.
+- [x] Build spend input form UI for all required tools/plans.
 - [ ] Add client-side persistence (local storage).
-- [ ] Implement audit submit flow and result rendering.
-- [ ] Build hero savings section + per-tool breakdown UI.
-- [ ] Implement conditional CTA blocks by savings band.
-- [ ] Add Quick Start Presets to auto-fill realistic baseline stacks.
+- [x] Implement audit submit flow and result rendering.
+- [x] Build hero savings section + per-tool breakdown UI.
+- [x] Implement conditional CTA blocks by savings band.
+- [x] Add Quick Start Presets to auto-fill realistic baseline stacks.
 
 ### Phase D: AI Summary + Lead Flow
 - [ ] Implement summary API route with Anthropic call.
 - [ ] Add timeout/retry policy and deterministic fallback.
 - [ ] Document prompts/fallback strategy in `PROMPTS.md`.
-- [ ] Build lead capture form (post-results only).
+- [x] Build lead capture form (post-results only).
 - [ ] Persist leads and audits in Supabase.
 - [ ] Integrate transactional email via Resend.
 
+### Phase D2: Database + Backend Implementation (Next Priority)
+- [x] Prepare Supabase env var contract (`NEXT_PUBLIC_SUPABASE_URL`, `NEXT_PUBLIC_SUPABASE_ANON_KEY`, `SUPABASE_SERVICE_ROLE_KEY`).
+- [x] Add SQL migration for `audits`, `leads`, and optional `events` tables.
+- [x] Add backend data access layer (`lib/db/*`) with typed insert/select helpers.
+- [ ] Implement `POST /api/audit` (persist audit and return `{id, public_id}`).
+- [ ] Implement `GET /api/audit/:id` (private audit fetch for result page).
+- [ ] Implement `POST /api/lead` (persist lead linked to `audit_id`).
+- [ ] Implement `GET /api/report/:publicId` (PII-free public payload).
+- [ ] Add server-side validation (Zod) for all API request bodies.
+- [ ] Add error model + response codes (400 validation, 404 not found, 429 rate-limited, 500 unexpected).
+- [ ] Add basic abuse protection on APIs (honeypot or IP rate limit).
+
 ### Phase E: Public Report and Growth Loop
 - [ ] Generate unique `public_id` per audit.
-- [ ] Create public report route (`/r/[publicId]`) with PII stripping.
+- [x] Create public report route (`/r/[publicId]`) with PII stripping.
 - [ ] Implement Open Graph + Twitter metadata for share URLs.
 
 ### Phase F: Reliability, Quality, and Launch
@@ -139,14 +151,14 @@ Users input their AI tools, plans, spend, and usage context, then receive an ins
 - [ ] Validate git history across 5+ distinct days in 7-day window.
 
 ### Phase H: Guaranteed Enhancements Delivery
-- [ ] Add Priority Action Queue section on `/audit/[id]`.
-- [ ] Add confidence labels (High/Medium/Low) on each recommendation row/card.
+- [x] Add Priority Action Queue section on `/audit/[id]`.
+- [x] Add confidence labels (High/Medium/Low) on each recommendation row/card.
 - [ ] Ensure confidence logic aligns with `AUDIT_LOGIC_POLICY.md`.
 
 ## 7) Expected Output by Savings Band
-- [ ] **High savings (> $500/mo):** strong optimization report + consultation CTA.
-- [ ] **Medium savings ($100-$500/mo):** prioritized action plan + soft consultation CTA.
-- [ ] **Low savings (< $100/mo):** honest “already efficient” message + notify CTA.
+- [x] **High savings (> $500/mo):** strong optimization report + consultation CTA.
+- [x] **Medium savings ($100-$500/mo):** prioritized action plan + soft consultation CTA.
+- [x] **Low savings (< $100/mo):** honest "already efficient" message + notify CTA.
 - [ ] **Near-optimal stack:** mostly keep recommendations with periodic re-audit suggestion.
 - [ ] **AI API failure case:** fallback summary visible; core audit unaffected.
 
@@ -156,12 +168,15 @@ Users input their AI tools, plans, spend, and usage context, then receive an ins
 - [ ] Audit logic is explainable and numerically consistent.
 - [ ] Personalized summary works with graceful fallback.
 - [ ] Leads are stored and confirmation emails send successfully.
-- [ ] Share page is public, clean, and PII-free.
+- [x] Share page is public, clean, and PII-free.
 - [ ] At least 5 audit-engine tests pass.
 - [ ] CI is green on latest `main` commit.
-- [ ] Quick Start Presets work and correctly prefill the form.
-- [ ] Priority Action Queue appears with correctly sorted top actions.
+- [x] Quick Start Presets work and correctly prefill the form.
+- [x] Priority Action Queue appears with correctly sorted top actions.
 - [ ] Confidence labels are visible and consistent with recommendation assumptions.
+- [ ] Audit and lead records are created in Supabase for successful flows.
+- [ ] Public report API never exposes email/company/role fields.
+- [ ] API routes are validated, typed, and return stable error responses.
 
 ## 9) Additional Features (Optional, End of Project)
 - [ ] 30-day re-audit reminder email opt-in.

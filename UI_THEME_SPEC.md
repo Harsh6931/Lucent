@@ -42,8 +42,8 @@
 - **Primary text:** `#0F172A` (slate-900)
 - **Secondary text:** `#475569` (slate-600)
 - **Border:** `#E2E8F0` (slate-200)
-- **Primary accent (actions):** `#0EA5E9` (sky-500)
-- **Primary accent hover:** `#0284C7` (sky-600)
+- **Primary accent (actions):** `#2563EB` (blue-600)
+- **Primary accent hover:** `#1D4ED8` (blue-700)
 - **Success/savings positive:** `#16A34A` (green-600)
 - **Warning/assumptions:** `#D97706` (amber-600)
 - **Error:** `#DC2626` (red-600)
@@ -91,4 +91,3 @@
 - Visible focus states on keyboard navigation
 - Minimum touch target 44px on mobile
 - No overlapping text/components on small screens
-

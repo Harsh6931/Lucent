@@ -11,21 +11,22 @@ export function LeadCaptureForm() {
           <input
             type="email"
             placeholder="name@company.com"
-            className="mt-1 h-11 w-full rounded-md border border-slate-300 px-3 text-slate-900 outline-none ring-sky-500 focus:ring"
+            className="mt-1 h-11 w-full rounded-md border border-slate-300 px-3 text-slate-900 outline-none ring-blue-600 focus:ring"
           />
         </label>
         <label className="text-sm font-medium text-slate-700">
           Company (optional)
-          <input className="mt-1 h-11 w-full rounded-md border border-slate-300 px-3 text-slate-900 outline-none ring-sky-500 focus:ring" />
+          <input className="mt-1 h-11 w-full rounded-md border border-slate-300 px-3 text-slate-900 outline-none ring-blue-600 focus:ring" />
         </label>
         <label className="text-sm font-medium text-slate-700">
           Role (optional)
-          <input className="mt-1 h-11 w-full rounded-md border border-slate-300 px-3 text-slate-900 outline-none ring-sky-500 focus:ring" />
+          <input className="mt-1 h-11 w-full rounded-md border border-slate-300 px-3 text-slate-900 outline-none ring-blue-600 focus:ring" />
         </label>
-        <button type="button" className="h-11 rounded-md bg-sky-500 px-5 text-sm font-semibold text-white hover:bg-sky-600 sm:col-span-2">
+        <button type="button" className="h-11 rounded-md bg-blue-600 px-5 text-sm font-semibold text-white hover:bg-blue-700 sm:col-span-2">
           Save And Email Report
         </button>
       </form>
     </section>
   );
 }
+

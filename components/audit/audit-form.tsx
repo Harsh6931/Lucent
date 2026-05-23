@@ -72,7 +72,7 @@ export function AuditForm() {
             key={preset.id}
             type="button"
             onClick={() => applyPreset(preset.id)}
-            className="rounded-lg border border-slate-200 bg-slate-50 p-3 text-left hover:border-sky-500 hover:bg-sky-50"
+            className="rounded-lg border border-slate-200 bg-slate-50 p-3 text-left hover:border-blue-600 hover:bg-blue-50"
           >
             <div className="text-sm font-semibold text-slate-900">{preset.label}</div>
             <div className="mt-1 text-xs text-slate-600">{preset.description}</div>
@@ -88,7 +88,7 @@ export function AuditForm() {
             min={1}
             value={form.teamSize}
             onChange={(event) => setForm((prev) => ({ ...prev, teamSize: Number(event.target.value || 1) }))}
-            className="mt-1 h-11 w-full rounded-md border border-slate-300 px-3 text-slate-900 outline-none ring-sky-500 focus:ring"
+            className="mt-1 h-11 w-full rounded-md border border-slate-300 px-3 text-slate-900 outline-none ring-blue-600 focus:ring"
           />
         </label>
 
@@ -99,7 +99,7 @@ export function AuditForm() {
             onChange={(event) =>
               setForm((prev) => ({ ...prev, primaryUseCase: event.target.value as AuditInput["primaryUseCase"] }))
             }
-            className="mt-1 h-11 w-full rounded-md border border-slate-300 bg-white px-3 text-slate-900 outline-none ring-sky-500 focus:ring"
+            className="mt-1 h-11 w-full rounded-md border border-slate-300 bg-white px-3 text-slate-900 outline-none ring-blue-600 focus:ring"
           >
             {PRIMARY_USE_CASES.map((item) => (
               <option key={item} value={item}>
@@ -117,7 +117,7 @@ export function AuditForm() {
               if (event.target.value) addTool(event.target.value as ToolKey);
               event.currentTarget.value = "";
             }}
-            className="mt-1 h-11 w-full rounded-md border border-slate-300 bg-white px-3 text-slate-900 outline-none ring-sky-500 focus:ring"
+            className="mt-1 h-11 w-full rounded-md border border-slate-300 bg-white px-3 text-slate-900 outline-none ring-blue-600 focus:ring"
           >
             <option value="" disabled>
               Select tool
@@ -158,7 +158,7 @@ export function AuditForm() {
                 <select
                   value={tool.plan}
                   onChange={(event) => updateTool(tool.key, { plan: event.target.value })}
-                  className="mt-1 h-11 w-full rounded-md border border-slate-300 bg-white px-3 text-slate-900 outline-none ring-sky-500 focus:ring"
+                  className="mt-1 h-11 w-full rounded-md border border-slate-300 bg-white px-3 text-slate-900 outline-none ring-blue-600 focus:ring"
                 >
                   {planOptions.map((plan) => (
                     <option key={plan} value={plan}>
@@ -175,7 +175,7 @@ export function AuditForm() {
                   min={0}
                   value={tool.monthlySpend}
                   onChange={(event) => updateTool(tool.key, { monthlySpend: Number(event.target.value || 0) })}
-                  className="mt-1 h-11 w-full rounded-md border border-slate-300 px-3 text-slate-900 outline-none ring-sky-500 focus:ring"
+                  className="mt-1 h-11 w-full rounded-md border border-slate-300 px-3 text-slate-900 outline-none ring-blue-600 focus:ring"
                 />
               </label>
 
@@ -186,7 +186,7 @@ export function AuditForm() {
                   min={1}
                   value={tool.seats}
                   onChange={(event) => updateTool(tool.key, { seats: Number(event.target.value || 1) })}
-                  className="mt-1 h-11 w-full rounded-md border border-slate-300 px-3 text-slate-900 outline-none ring-sky-500 focus:ring"
+                  className="mt-1 h-11 w-full rounded-md border border-slate-300 px-3 text-slate-900 outline-none ring-blue-600 focus:ring"
                 />
               </label>
             </div>
@@ -202,7 +202,7 @@ export function AuditForm() {
           type="button"
           onClick={submitAudit}
           disabled={form.tools.length === 0}
-          className="h-11 rounded-md bg-sky-500 px-5 text-sm font-semibold text-white hover:bg-sky-600 disabled:cursor-not-allowed disabled:bg-slate-300"
+          className="h-11 rounded-md bg-blue-600 px-5 text-sm font-semibold text-white hover:bg-blue-700 disabled:cursor-not-allowed disabled:bg-slate-300"
         >
           Generate Audit
         </button>
@@ -210,3 +210,4 @@ export function AuditForm() {
     </section>
   );
 }
+

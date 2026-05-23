@@ -31,7 +31,7 @@ export default function PublicReportPage({ params }: PublicReportPageProps) {
           </div>
           <a
             href="/"
-            className="mt-6 inline-flex h-11 items-center rounded-md bg-sky-500 px-5 text-sm font-semibold text-white hover:bg-sky-600"
+            className="mt-6 inline-flex h-11 items-center rounded-md bg-blue-600 px-5 text-sm font-semibold text-white hover:bg-blue-700"
           >
             Run Your Own Audit
           </a>
@@ -41,3 +41,4 @@ export default function PublicReportPage({ params }: PublicReportPageProps) {
     </div>
   );
 }
+
