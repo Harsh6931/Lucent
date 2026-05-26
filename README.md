@@ -4,11 +4,13 @@
 Lucent is a free AI spend audit web app for startup founders and engineering managers.  
 It captures team/tooling inputs, runs a deterministic audit engine, stores results in a real backend, and returns a shareable PII-safe report with actionable savings recommendations.
 
-## Screenshots / Demo
-- Screenshot 1 (homepage + audit form): `TODO`
-- Screenshot 2 (private audit result page): `TODO`
-- Screenshot 3 (public share report page): `TODO`
-- Screen recording link (YouTube/Loom): `TODO`
+## Database Integration & Setup Screenshots
+- **Supabase Project Credentials Setup**: [supabase_api_keys.png](file:///d:/COMPUTER%20SCIENCE/Lucent/public/screenshots/supabase_api_keys.png)
+  ![Supabase Project Credentials Setup](/public/screenshots/supabase_api_keys.png)
+- **Database Schema Migration Run**: [supabase_migration_success.png](file:///d:/COMPUTER%20SCIENCE/Lucent/public/screenshots/supabase_migration_success.png)
+  ![Database Schema Migration Run](/public/screenshots/supabase_migration_success.png)
+- **Supabase Dashboard RLS Check**: [supabase_rls_prompt.png](file:///d:/COMPUTER%20SCIENCE/Lucent/public/screenshots/supabase_rls_prompt.png)
+  ![Supabase Dashboard RLS Check](/public/screenshots/supabase_rls_prompt.png)
 
 ## Quick Start
 ### Install
@@ -40,4 +42,4 @@ npm.cmd run dev -- -p 3001
 5. **Backend-first persistence with Supabase:** practical path to real storage and production-ready CRUD without overbuilding infrastructure.
 
 ## Deployed URL
-`TODO`
+[https://lucent-spend.vercel.app](https://lucent-spend.vercel.app) *(Note: Please update this with your actual live Vercel URL after deployment)*
