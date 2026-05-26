@@ -19,15 +19,15 @@ Users input their AI tools, plans, spend, and usage context, then receive an ins
 
 ## 4) Tech Stack (Selected)
 - [x] **App framework:** Next.js 15 (App Router) + TypeScript
-- [ ] **UI:** Tailwind CSS + shadcn/ui
+- [x] **UI:** Tailwind CSS + shadcn/ui
 - [x] **Forms/validation:** React Hook Form + Zod
 - [x] **Database/backend:** Supabase (Postgres)
 - [x] **Email:** Resend
 - [x] **AI summary:** Anthropic API (fallback to templated summary)
-- [ ] **Abuse protection:** Cloudflare Turnstile (or honeypot + rate limit fallback)
+- [x] **Abuse protection:** Cloudflare Turnstile (or honeypot + rate limit fallback)
 - [x] **Testing:** Vitest + Testing Library
-- [ ] **Quality:** ESLint + Prettier
-- [ ] **Deployment:** Vercel
+- [x] **Quality:** ESLint + Prettier
+- [x] **Deployment:** Vercel
 
 ## 5) Functional Requirements (MVP)
 ### R1. Spend Input Form
@@ -54,7 +54,7 @@ Users input their AI tools, plans, spend, and usage context, then receive an ins
 ### R3. Audit Results Page
 - [x] Hero values: total monthly + annual savings.
 - [x] Per-tool breakdown (current -> action -> savings -> reason).
-- [ ] Conditional CTA:
+- [x] Conditional CTA:
   - [x] Savings > $500/mo: strong Credex consultation CTA.
   - [x] Savings < $100/mo or optimal: honest "you’re spending well" + notify CTA.
 
@@ -66,12 +66,12 @@ Users input their AI tools, plans, spend, and usage context, then receive an ins
 - [x] Capture email (+ optional company/role/team size).
 - [x] Store in real backend DB.
 - [x] Send transactional confirmation email.
-- [ ] Add abuse protection (Turnstile/honeypot/rate limit).
+- [x] Add abuse protection (Turnstile/honeypot/rate limit).
 
 ### R6. Shareable Result URL
 - [x] Unique public URL per audit.
 - [x] Public view excludes PII.
-- [ ] Open Graph + Twitter card metadata.
+- [x] Open Graph + Twitter card metadata.
 
 ### R7. Guaranteed UX Enhancements (Committed)
 - [x] **Quick Start Presets** on homepage form:
@@ -88,13 +88,13 @@ Users input their AI tools, plans, spend, and usage context, then receive an ins
 ## 6) Step-by-Step Implementation Checklist (Execution Order)
 ### Phase A: Setup and Foundations
 - [x] Initialize Next.js + TypeScript + Tailwind + shadcn/ui project.
-- [ ] Configure linting/formatting (ESLint + Prettier).
+- [x] Configure linting/formatting (ESLint + Prettier).
 - [x] Define TypeScript domain models and Zod schemas.
 - [x] Add environment variable contract and `.env.example`.
 
 ### Phase B: Pricing and Audit Core
 - [x] Create centralized pricing source file(s) mapped to official vendor pages.
-- [ ] Write `PRICING_DATA.md` with URLs and verification dates.
+- [x] Write `PRICING_DATA.md` with URLs and verification dates.
 - [x] Implement audit calculation engine as pure functions.
 - [x] Implement recommendation reason templates.
 - [x] Write minimum 5 automated audit-engine tests.
@@ -127,16 +127,16 @@ Users input their AI tools, plans, spend, and usage context, then receive an ins
 - [x] Manual data path check:
   - [x] Submit one audit and verify row in `audits`.
   - [x] Submit one lead and verify row in `leads`.
-- [ ] Create Resend account and configure sender/domain.
-- [ ] Add email env values:
-  - [ ] `RESEND_API_KEY`
-  - [ ] `RESEND_FROM_EMAIL`
-- [ ] Create AI provider key (Anthropic preferred or OpenAI).
-- [ ] Add AI env value(s):
-  - [ ] `ANTHROPIC_API_KEY` or `OPENAI_API_KEY`
-- [ ] Set `NEXT_PUBLIC_APP_URL` for local and production.
-- [ ] Link GitHub repo to Vercel project.
-- [ ] Add all production env vars in Vercel project settings.
+- [x] Create Resend account and configure sender/domain.
+- [x] Add email env values:
+  - [x] `RESEND_API_KEY`
+  - [x] `RESEND_FROM_EMAIL`
+- [x] Create AI provider key (Anthropic preferred or OpenAI).
+- [x] Add AI env value(s):
+  - [x] `ANTHROPIC_API_KEY` or `OPENAI_API_KEY`
+- [x] Set `NEXT_PUBLIC_APP_URL` for local and production.
+- [x] Link GitHub repo to Vercel project.
+- [x] Add all production env vars in Vercel project settings.
 - [x] Confirm `.env` is gitignored and `.env.example` is up to date.
 
 ### Phase D2: Database + Backend Implementation (Next Priority)
@@ -154,24 +154,24 @@ Users input their AI tools, plans, spend, and usage context, then receive an ins
 ### Phase E: Public Report and Growth Loop
 - [x] Generate unique `public_id` per audit.
 - [x] Create public report route (`/r/[publicId]`) with PII stripping.
-- [ ] Implement Open Graph + Twitter metadata for share URLs.
+- [x] Implement Open Graph + Twitter metadata for share URLs.
 
 ### Phase F: Reliability, Quality, and Launch
-- [ ] Add abuse protection (Turnstile or honeypot + per-IP limit).
-- [ ] Configure GitHub Actions workflow at `.github/workflows/ci.yml`.
-- [ ] Ensure CI runs lint + tests on push to `main`.
-- [ ] Perform mobile/accessibility/performance polish.
-- [ ] Run Lighthouse and fix major issues to target thresholds.
-- [ ] Deploy to Vercel.
-- [ ] Perform end-to-end production validation.
+- [x] Add abuse protection (Turnstile or honeypot + per-IP limit).
+- [x] Configure GitHub Actions workflow at `.github/workflows/ci.yml`.
+- [x] Ensure CI runs lint + tests on push to `main`.
+- [x] Perform mobile/accessibility/performance polish.
+- [x] Run Lighthouse and fix major issues to target thresholds.
+- [x] Deploy to Vercel.
+- [x] Perform end-to-end production validation.
 
 ### Phase G: Assignment Deliverables
-- [ ] Finalize `README.md` (summary, quick start, decisions, deployed URL, media links).
-- [ ] Finalize `ARCHITECTURE.md` (diagram, data flow, scale plan).
-- [ ] Maintain `DEVLOG.md` daily for 7 days using exact format.
-- [ ] Finalize `REFLECTION.md` (all 5 required answers).
-- [ ] Finalize entrepreneurial docs: `GTM.md`, `ECONOMICS.md`, `USER_INTERVIEWS.md`, `LANDING_COPY.md`, `METRICS.md`.
-- [ ] Validate git history across 5+ distinct days in 7-day window.
+- [x] Finalize `README.md` (summary, quick start, decisions, deployed URL, media links).
+- [x] Finalize `ARCHITECTURE.md` (diagram, data flow, scale plan).
+- [x] Maintain `DEVLOG.md` daily for 7 days using exact format.
+- [x] Finalize `REFLECTION.md` (all 5 required answers).
+- [x] Finalize entrepreneurial docs: `GTM.md`, `ECONOMICS.md`, `USER_INTERVIEWS.md`, `LANDING_COPY.md`, `METRICS.md`.
+- [x] Validate git history across 5+ distinct days in 7-day window.
 
 ### Phase H: Guaranteed Enhancements Delivery
 - [x] Add Priority Action Queue section on `/audit/[id]`.
@@ -182,18 +182,18 @@ Users input their AI tools, plans, spend, and usage context, then receive an ins
 - [x] **High savings (> $500/mo):** strong optimization report + consultation CTA.
 - [x] **Medium savings ($100-$500/mo):** prioritized action plan + soft consultation CTA.
 - [x] **Low savings (< $100/mo):** honest "already efficient" message + notify CTA.
-- [ ] **Near-optimal stack:** mostly keep recommendations with periodic re-audit suggestion.
+- [x] **Near-optimal stack:** mostly keep recommendations with periodic re-audit suggestion.
 - [x] **AI API failure case:** fallback summary visible; core audit unaffected.
 
 ## 8) Acceptance Criteria (Definition of Done)
-- [ ] All six assignment MVP features work on deployed URL.
-- [ ] Form state persists across reloads.
-- [ ] Audit logic is explainable and numerically consistent.
+- [x] All six assignment MVP features work on deployed URL.
+- [x] Form state persists across reloads.
+- [x] Audit logic is explainable and numerically consistent.
 - [x] Personalized summary works with graceful fallback.
-- [ ] Leads are stored and confirmation emails send successfully.
+- [x] Leads are stored and confirmation emails send successfully.
 - [x] Share page is public, clean, and PII-free.
 - [x] At least 5 audit-engine tests pass.
-- [ ] CI is green on latest `main` commit.
+- [x] CI is green on latest `main` commit.
 - [x] Quick Start Presets work and correctly prefill the form.
 - [x] Priority Action Queue appears with correctly sorted top actions.
 - [x] Confidence labels are visible and consistent with recommendation assumptions.
