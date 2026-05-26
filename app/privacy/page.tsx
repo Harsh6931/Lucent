@@ -39,7 +39,7 @@ export default function PrivacyPage() {
                 <a href="#retention" className="hover:text-slate-950 hover:underline transition">5. Retention & Security</a>
                 <a href="#rights" className="hover:text-slate-950 hover:underline transition">6. Your Privacy Rights</a>
                 <a href="#cookies" className="hover:text-slate-950 hover:underline transition">7. Cookies & Tracking</a>
-                <a href="#children" className="hover:text-slate-950 hover:underline transition">8. Children's Privacy</a>
+                <a href="#children" className="hover:text-slate-950 hover:underline transition">8. Children&apos;s Privacy</a>
                 <a href="#changes" className="hover:text-slate-950 hover:underline transition">9. Amendments</a>
                 <a href="#contact" className="hover:text-slate-950 hover:underline transition">10. Contact Us</a>
               </nav>
