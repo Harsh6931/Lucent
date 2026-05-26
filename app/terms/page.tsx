@@ -1,5 +1,11 @@
+import type { Metadata } from "next";
 import { SiteFooter } from "@/components/layout/site-footer";
 import { SiteHeader } from "@/components/layout/site-header";
+
+export const metadata: Metadata = {
+  title: "Terms of Use",
+  description: "Lucent provides budgeting guidance and optimization suggestions. Outputs are estimates for informational purposes.",
+};
 
 export default function TermsPage() {
   return (

@@ -1,6 +1,14 @@
+import type { Metadata } from "next";
 import { AuditForm } from "@/components/audit/audit-form";
 import { SiteFooter } from "@/components/layout/site-footer";
 import { SiteHeader } from "@/components/layout/site-header";
+
+export const metadata: Metadata = {
+  title: "Free AI Spend Audit for Startups",
+  description:
+    "Lucent analyzes your AI tool stack — Cursor, Copilot, ChatGPT, Claude, and more — and finds where you are overspending. Free, instant, no login.",
+};
+
 
 export default function HomePage() {
   return (

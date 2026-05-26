@@ -1,5 +1,11 @@
+import type { Metadata } from "next";
 import { SiteFooter } from "@/components/layout/site-footer";
 import { SiteHeader } from "@/components/layout/site-header";
+
+export const metadata: Metadata = {
+  title: "Book a Credex Consultation",
+  description: "Book a follow-up consultation to capture deeper credit-based savings on your AI tooling stack.",
+};
 
 export default function BookConsultationPage() {
   return (

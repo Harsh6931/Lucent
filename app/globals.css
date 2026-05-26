@@ -15,7 +15,16 @@
 
 body {
   margin: 0;
-  font-family: Inter, system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, sans-serif;
+  /* Use the Next.js-served Inter variable font; system-ui as fallback */
+  font-family: var(--font-inter, system-ui, -apple-system, "Segoe UI", Roboto, Helvetica, Arial, sans-serif);
   background: var(--lucent-bg);
   color: var(--lucent-text-primary);
+  /* Improve text rendering */
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+/* Smooth scroll for hash navigation (How It Works, FAQ) */
+html {
+  scroll-behavior: smooth;
 }

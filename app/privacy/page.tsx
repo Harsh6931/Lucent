@@ -1,5 +1,11 @@
+import type { Metadata } from "next";
 import { SiteFooter } from "@/components/layout/site-footer";
 import { SiteHeader } from "@/components/layout/site-header";
+
+export const metadata: Metadata = {
+  title: "Privacy Policy",
+  description: "Lucent captures only the minimum data required for audit delivery. Public report links strip all identifying details.",
+};
 
 export default function PrivacyPage() {
   return (

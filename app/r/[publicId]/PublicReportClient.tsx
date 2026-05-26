@@ -1,6 +1,7 @@
 "use client";
 
 import Link from "next/link";
+import { SavingsStat } from "@/components/audit/savings-stat";
 
 type PublicReport = {
   publicId: string;
@@ -31,20 +32,16 @@ export default function PublicReportClient({ publicId, initialData, error }: Pub
         {error || !initialData ? (
           <p className="mt-3 text-sm text-red-600">Public report not found.</p>
         ) : (
-          <div className="mt-3 grid gap-4 sm:grid-cols-2">
-            <div>
-              <p className="text-xs uppercase tracking-wide text-slate-500">Monthly</p>
-              <p className="text-3xl font-bold text-green-600">${Number(initialData.totalMonthlySavings).toFixed(2)}</p>
-            </div>
-            <div>
-              <p className="text-xs uppercase tracking-wide text-slate-500">Annual</p>
-              <p className="text-3xl font-bold text-slate-900">${Number(initialData.totalAnnualSavings).toFixed(2)}</p>
-            </div>
+          <div className="mt-3">
+            <SavingsStat
+              monthly={initialData.totalMonthlySavings}
+              annual={initialData.totalAnnualSavings}
+            />
           </div>
         )}
         <Link
           href="/"
-          className="mt-6 inline-flex h-11 items-center rounded-md bg-blue-600 px-5 text-sm font-semibold text-white hover:bg-blue-700"
+          className="mt-6 inline-flex h-11 items-center rounded-md bg-blue-600 px-5 text-sm font-semibold text-white hover:bg-blue-700 transition-colors"
         >
           Run Your Own Audit
         </Link>
