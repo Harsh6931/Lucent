@@ -8,15 +8,15 @@ export function SiteHeader() {
           Lucent
         </Link>
         <nav className="flex items-center gap-5 text-sm text-slate-600">
-          <a href="#how-it-works" className="hover:text-slate-900">
+          <Link href="/#how-it-works" className="hover:text-slate-900">
             How It Works
-          </a>
-          <a href="#faq" className="hover:text-slate-900">
+          </Link>
+          <Link href="/#faq" className="hover:text-slate-900">
             FAQ
-          </a>
-          <a href="/privacy" className="hover:text-slate-900">
+          </Link>
+          <Link href="/privacy" className="hover:text-slate-900">
             Privacy
-          </a>
+          </Link>
         </nav>
       </div>
     </header>
