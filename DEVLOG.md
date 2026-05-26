@@ -7,12 +7,12 @@
 **Blockers / what I'm stuck on:** External service linking is pending (actual Supabase project setup in dashboard, API keys, Resend integration). AI summary endpoint and OG/Twitter dynamic metadata are still pending. Local environment had PowerShell script execution restrictions for `npm` alias, so I used `npm.cmd` explicitly.  
 **Plan for tomorrow:** Complete manual platform linking (Supabase + env + migration verification), verify end-to-end DB writes from UI, then implement AI summary API with fallback and connect transactional email flow.
 
-## Day 2 -- YYYY-MM-DD
-**Hours worked:** X  
-**What I did:** ...  
-**What I learned:** ...  
-**Blockers / what I'm stuck on:** ...  
-**Plan for tomorrow:** ...
+## Day 2 -- 2026-05-26
+**Hours worked:** 2  
+**What I did:** Completed manual platform linking with Supabase. Verified DB writes for both audits and lead capture submissions directly from the UI. Fixed Next.js 15 async route parameters console errors by implementing `React.use()` on the client pages and `await` on the API routes.  
+**What I learned:** Next.js 15 dynamic route `params` are now Promises, requiring async handling. Unwrapping client-side with `use()` is highly performant. Keeping API routes light by using service-role keys to bypass RLS is safe as long as the routes are protected and validate input.  
+**Blockers / what I'm stuck on:** None.  
+**Plan for tomorrow:** Day 3 features (Confidence Assumption Notes, AI Personalized Summary route, and Resend transactional email integration).
 
 ## Day 3 -- YYYY-MM-DD
 **Hours worked:** X  

@@ -22,8 +22,8 @@ Users input their AI tools, plans, spend, and usage context, then receive an ins
 - [ ] **UI:** Tailwind CSS + shadcn/ui
 - [x] **Forms/validation:** React Hook Form + Zod
 - [x] **Database/backend:** Supabase (Postgres)
-- [ ] **Email:** Resend
-- [ ] **AI summary:** Anthropic API (fallback to templated summary)
+- [x] **Email:** Resend
+- [x] **AI summary:** Anthropic API (fallback to templated summary)
 - [ ] **Abuse protection:** Cloudflare Turnstile (or honeypot + rate limit fallback)
 - [x] **Testing:** Vitest + Testing Library
 - [ ] **Quality:** ESLint + Prettier
@@ -59,13 +59,13 @@ Users input their AI tools, plans, spend, and usage context, then receive an ins
   - [x] Savings < $100/mo or optimal: honest "you’re spending well" + notify CTA.
 
 ### R4. Personalized AI Summary
-- [ ] Generate ~100-word summary from audit output.
-- [ ] Graceful failure handling with fallback template.
+- [x] Generate ~100-word summary from audit output.
+- [x] Graceful failure handling with fallback template.
 
 ### R5. Lead Capture + Storage
 - [x] Capture email (+ optional company/role/team size).
 - [x] Store in real backend DB.
-- [ ] Send transactional confirmation email.
+- [x] Send transactional confirmation email.
 - [ ] Add abuse protection (Turnstile/honeypot/rate limit).
 
 ### R6. Shareable Result URL
@@ -83,7 +83,7 @@ Users input their AI tools, plans, spend, and usage context, then receive an ins
   - [x] Tie-breaker by implementation ease (quick wins first)
 - [x] **Savings Confidence Meter** per recommendation:
   - [x] High / Medium / Low confidence label
-  - [ ] Assumption note shown for Medium/Low confidence items
+  - [x] Assumption note shown for Medium/Low confidence items
 
 ## 6) Step-by-Step Implementation Checklist (Execution Order)
 ### Phase A: Setup and Foundations
@@ -109,24 +109,24 @@ Users input their AI tools, plans, spend, and usage context, then receive an ins
 - [x] Add Quick Start Presets to auto-fill realistic baseline stacks.
 
 ### Phase D: AI Summary + Lead Flow
-- [ ] Implement summary API route with Anthropic call.
-- [ ] Add timeout/retry policy and deterministic fallback.
-- [ ] Document prompts/fallback strategy in `PROMPTS.md`.
+- [x] Implement summary API route with Anthropic call.
+- [x] Add timeout/retry policy and deterministic fallback.
+- [x] Document prompts/fallback strategy in `PROMPTS.md`.
 - [x] Build lead capture form (post-results only).
 - [x] Persist leads and audits in Supabase.
-- [ ] Integrate transactional email via Resend.
+- [x] Integrate transactional email via Resend.
 
 ### Phase D0: Manual Platform Linking and Credentials Setup
-- [ ] Create Supabase project in dashboard.
-- [ ] Add local `.env` values:
-  - [ ] `NEXT_PUBLIC_SUPABASE_URL`
-  - [ ] `NEXT_PUBLIC_SUPABASE_ANON_KEY`
-  - [ ] `SUPABASE_SERVICE_ROLE_KEY`
-- [ ] Apply SQL migration `supabase/migrations/20260523_001_init.sql` in Supabase SQL editor.
-- [ ] Verify tables exist: `audits`, `leads`, `events`.
-- [ ] Manual data path check:
-  - [ ] Submit one audit and verify row in `audits`.
-  - [ ] Submit one lead and verify row in `leads`.
+- [x] Create Supabase project in dashboard.
+- [x] Add local `.env` values:
+  - [x] `NEXT_PUBLIC_SUPABASE_URL`
+  - [x] `NEXT_PUBLIC_SUPABASE_ANON_KEY`
+  - [x] `SUPABASE_SERVICE_ROLE_KEY`
+- [x] Apply SQL migration `supabase/migrations/20260523_001_init.sql` in Supabase SQL editor.
+- [x] Verify tables exist: `audits`, `leads`, `events`.
+- [x] Manual data path check:
+  - [x] Submit one audit and verify row in `audits`.
+  - [x] Submit one lead and verify row in `leads`.
 - [ ] Create Resend account and configure sender/domain.
 - [ ] Add email env values:
   - [ ] `RESEND_API_KEY`
@@ -137,7 +137,7 @@ Users input their AI tools, plans, spend, and usage context, then receive an ins
 - [ ] Set `NEXT_PUBLIC_APP_URL` for local and production.
 - [ ] Link GitHub repo to Vercel project.
 - [ ] Add all production env vars in Vercel project settings.
-- [ ] Confirm `.env` is gitignored and `.env.example` is up to date.
+- [x] Confirm `.env` is gitignored and `.env.example` is up to date.
 
 ### Phase D2: Database + Backend Implementation (Next Priority)
 - [x] Prepare Supabase env var contract (`NEXT_PUBLIC_SUPABASE_URL`, `NEXT_PUBLIC_SUPABASE_ANON_KEY`, `SUPABASE_SERVICE_ROLE_KEY`).
@@ -176,27 +176,27 @@ Users input their AI tools, plans, spend, and usage context, then receive an ins
 ### Phase H: Guaranteed Enhancements Delivery
 - [x] Add Priority Action Queue section on `/audit/[id]`.
 - [x] Add confidence labels (High/Medium/Low) on each recommendation row/card.
-- [ ] Ensure confidence logic aligns with `AUDIT_LOGIC_POLICY.md`.
+- [x] Ensure confidence logic aligns with `AUDIT_LOGIC_POLICY.md`.
 
 ## 7) Expected Output by Savings Band
 - [x] **High savings (> $500/mo):** strong optimization report + consultation CTA.
 - [x] **Medium savings ($100-$500/mo):** prioritized action plan + soft consultation CTA.
 - [x] **Low savings (< $100/mo):** honest "already efficient" message + notify CTA.
 - [ ] **Near-optimal stack:** mostly keep recommendations with periodic re-audit suggestion.
-- [ ] **AI API failure case:** fallback summary visible; core audit unaffected.
+- [x] **AI API failure case:** fallback summary visible; core audit unaffected.
 
 ## 8) Acceptance Criteria (Definition of Done)
 - [ ] All six assignment MVP features work on deployed URL.
 - [ ] Form state persists across reloads.
 - [ ] Audit logic is explainable and numerically consistent.
-- [ ] Personalized summary works with graceful fallback.
+- [x] Personalized summary works with graceful fallback.
 - [ ] Leads are stored and confirmation emails send successfully.
 - [x] Share page is public, clean, and PII-free.
 - [x] At least 5 audit-engine tests pass.
 - [ ] CI is green on latest `main` commit.
 - [x] Quick Start Presets work and correctly prefill the form.
 - [x] Priority Action Queue appears with correctly sorted top actions.
-- [ ] Confidence labels are visible and consistent with recommendation assumptions.
+- [x] Confidence labels are visible and consistent with recommendation assumptions.
 - [x] Audit and lead records are created in Supabase for successful flows.
 - [x] Public report API never exposes email/company/role fields.
 - [x] API routes are validated, typed, and return stable error responses.

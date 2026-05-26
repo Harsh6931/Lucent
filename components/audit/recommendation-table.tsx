@@ -36,6 +36,11 @@ export function RecommendationTable({ items }: RecommendationTableProps) {
                 <td className="py-3">
                   <p className="font-medium text-slate-900">{item.action}</p>
                   <p className="mt-1 text-xs text-slate-600">{item.reason}</p>
+                  {item.assumptionNote && (
+                    <p className="mt-2 rounded bg-amber-50 p-2 text-xs text-amber-800 border border-amber-100/50">
+                      <strong>Assumption:</strong> {item.assumptionNote}
+                    </p>
+                  )}
                 </td>
                 <td className="py-3 font-semibold text-green-600">${item.monthlySavings.toFixed(2)}/mo</td>
                 <td className="py-3">

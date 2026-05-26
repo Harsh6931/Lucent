@@ -35,4 +35,5 @@ export type Recommendation = {
   monthlySavings: number;
   confidence: ConfidenceLevel;
   implementationEffort: "quick" | "moderate";
+  assumptionNote?: string;
 };

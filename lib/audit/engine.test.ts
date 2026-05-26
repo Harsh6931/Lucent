@@ -56,5 +56,21 @@ describe("runAudit", () => {
     const out = runAudit(input);
     expect(["high", "medium", "low"]).toContain(out.recommendations[0].confidence);
   });
+
+  it("attaches an assumption note for low or medium confidence recommendations", () => {
+    const input: AuditInput = {
+      teamSize: 2,
+      primaryUseCase: "coding",
+      tools: [
+        { key: "cursor", plan: "Business", monthlySpend: 0, seats: 2 },
+        { key: "openai_api", plan: "Usage-based", monthlySpend: 150, seats: 2 }
+      ]
+    };
+    const out = runAudit(input);
+    expect(out.recommendations[0].confidence).toBe("low");
+    expect(out.recommendations[0].assumptionNote).toContain("Zero spend reported");
+    expect(out.recommendations[1].confidence).toBe("medium");
+    expect(out.recommendations[1].assumptionNote).toContain("Usage-based pricing assumes");
+  });
 });
 

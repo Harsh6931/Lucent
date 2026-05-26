@@ -4,6 +4,8 @@ import { use, useEffect, useState } from "react";
 import { SiteFooter } from "@/components/layout/site-footer";
 import { SiteHeader } from "@/components/layout/site-header";
 
+import Link from "next/link";
+
 type PublicReportPageProps = { params: Promise<{ publicId: string }> };
 type PublicReport = {
   publicId: string;
@@ -38,7 +40,7 @@ export default function PublicReportPage({ params }: PublicReportPageProps) {
         <section className="rounded-lg border border-slate-200 bg-white p-6 shadow-sm">
           <p className="text-xs font-medium uppercase tracking-wide text-slate-500">Public Report</p>
           <h1 className="mt-2 text-2xl font-bold text-slate-900">Lucent Audit Snapshot</h1>
-          <p className="mt-2 text-sm text-slate-600">Report ID: {params.publicId}</p>
+          <p className="mt-2 text-sm text-slate-600">Report ID: {publicId}</p>
           <p className="mt-4 text-sm text-slate-700">
             This is a share-safe version of the audit. Personal identifiers are removed by default.
           </p>
@@ -60,12 +62,12 @@ export default function PublicReportPage({ params }: PublicReportPageProps) {
               </div>
             </div>
           ) : null}
-          <a
+          <Link
             href="/"
             className="mt-6 inline-flex h-11 items-center rounded-md bg-blue-600 px-5 text-sm font-semibold text-white hover:bg-blue-700"
           >
             Run Your Own Audit
-          </a>
+          </Link>
         </section>
       </main>
       <SiteFooter />

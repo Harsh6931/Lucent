@@ -57,6 +57,19 @@ function recommendationForTool(input: AuditInput, tool: ToolInput): Recommendati
   }
 
   const monthlySavings = Math.max(currentMonthly - projectedMonthly, 0);
+  const confidence = confidenceFor(tool, modeledCurrent);
+
+  let assumptionNote: string | undefined = undefined;
+  if (confidence === "low") {
+    assumptionNote = "Zero spend reported for active tool. Verify if this tool is actually in use or if the license was forgotten.";
+  } else if (confidence === "medium") {
+    if (tool.plan === "Usage-based" || tool.plan === "API direct") {
+      assumptionNote = "Usage-based pricing assumes flat historical consumption; savings may vary with actual API/credit usage.";
+    } else {
+      assumptionNote = "Reported spend deviates significantly from modeled base plans. This may be due to custom discounts, API add-ons, or overages.";
+    }
+  }
+
   return {
     tool: tool.key,
     currentPlan: tool.plan,
@@ -65,8 +78,9 @@ function recommendationForTool(input: AuditInput, tool: ToolInput): Recommendati
     currentMonthly: Number(currentMonthly.toFixed(2)),
     projectedMonthly: Number(projectedMonthly.toFixed(2)),
     monthlySavings: Number(monthlySavings.toFixed(2)),
-    confidence: confidenceFor(tool, modeledCurrent),
-    implementationEffort: monthlySavings > 100 ? "moderate" : "quick"
+    confidence,
+    implementationEffort: monthlySavings > 100 ? "moderate" : "quick",
+    assumptionNote
   };
 }
 

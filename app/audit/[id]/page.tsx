@@ -24,6 +24,8 @@ export default function AuditResultPage({ params }: AuditPageProps) {
   const { id } = use(params);
   const [data, setData] = useState<AuditPayload | null>(null);
   const [loading, setLoading] = useState(true);
+  const [summary, setSummary] = useState("Generating personalized audit summary...");
+  const [summaryFallback, setSummaryFallback] = useState(false);
 
   useEffect(() => {
     async function loadAudit() {
@@ -33,6 +35,33 @@ export default function AuditResultPage({ params }: AuditPageProps) {
         const json = await res.json();
         if (!res.ok) throw new Error("fetch failed");
         setData(json.data);
+
+        // Fetch AI Summary
+        try {
+          const summaryRes = await fetch("/api/summary", {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({
+              teamSize: json.data.teamSize,
+              primaryUseCase: json.data.primaryUseCase,
+              totalMonthlySpend: json.data.totalMonthlySpend,
+              totalMonthlySavings: json.data.totalMonthlySavings,
+              totalAnnualSavings: json.data.totalAnnualSavings,
+              recommendations: json.data.auditPayload?.output?.recommendations ?? []
+            })
+          });
+          const summaryJson = await summaryRes.json();
+          if (summaryRes.ok && summaryJson.ok) {
+            setSummary(summaryJson.data.summary);
+            setSummaryFallback(summaryJson.data.fallbackUsed);
+          } else {
+            throw new Error("Summary API failed");
+          }
+        } catch (err) {
+          console.error("Failed to load summary", err);
+          setSummary("Could not generate summary.");
+          setSummaryFallback(true);
+        }
       } finally {
         setLoading(false);
       }
@@ -78,7 +107,7 @@ export default function AuditResultPage({ params }: AuditPageProps) {
         <SavingsHero totalMonthlySavings={totalMonthlySavings} totalAnnualSavings={totalAnnualSavings} />
         <PriorityActionQueue items={recommendations} />
         <RecommendationTable items={recommendations} />
-        <AiSummaryCard summary="Audit generated. AI personalized summary API will be connected in next phase." fallbackUsed />
+        <AiSummaryCard summary={summary} fallbackUsed={summaryFallback} />
 
         <section className="rounded-lg border border-slate-200 bg-white p-5 shadow-sm sm:p-6">
           <h2 className="text-lg font-semibold text-slate-900">Next Best Step</h2>
