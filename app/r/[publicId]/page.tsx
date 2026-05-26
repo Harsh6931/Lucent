@@ -1,10 +1,10 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { use, useEffect, useState } from "react";
 import { SiteFooter } from "@/components/layout/site-footer";
 import { SiteHeader } from "@/components/layout/site-header";
 
-type PublicReportPageProps = { params: { publicId: string } };
+type PublicReportPageProps = { params: Promise<{ publicId: string }> };
 type PublicReport = {
   publicId: string;
   totalMonthlySavings: number;
@@ -12,6 +12,7 @@ type PublicReport = {
 };
 
 export default function PublicReportPage({ params }: PublicReportPageProps) {
+  const { publicId } = use(params);
   const [data, setData] = useState<PublicReport | null>(null);
   const [loading, setLoading] = useState(true);
 
@@ -19,7 +20,7 @@ export default function PublicReportPage({ params }: PublicReportPageProps) {
     async function load() {
       try {
         setLoading(true);
-        const res = await fetch(`/api/report/${params.publicId}`);
+        const res = await fetch(`/api/report/${publicId}`);
         const json = await res.json();
         if (!res.ok) throw new Error("not found");
         setData(json.data);
@@ -28,7 +29,7 @@ export default function PublicReportPage({ params }: PublicReportPageProps) {
       }
     }
     load();
-  }, [params.publicId]);
+  }, [publicId]);
 
   return (
     <div className="min-h-screen bg-slate-50 text-slate-900">

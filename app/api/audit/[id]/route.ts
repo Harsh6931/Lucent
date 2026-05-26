@@ -1,9 +1,10 @@
 import { fail, ok } from "@/lib/api/response";
 import { getAuditById } from "@/lib/db/repositories";
 
-export async function GET(_: Request, { params }: { params: { id: string } }) {
+export async function GET(_: Request, { params }: { params: Promise<{ id: string }> }) {
   try {
-    const row = await getAuditById(params.id);
+    const { id } = await params;
+    const row = await getAuditById(id);
     return ok({
       id: row.id,
       publicId: row.public_id,

@@ -116,6 +116,29 @@ Users input their AI tools, plans, spend, and usage context, then receive an ins
 - [x] Persist leads and audits in Supabase.
 - [ ] Integrate transactional email via Resend.
 
+### Phase D0: Manual Platform Linking and Credentials Setup
+- [ ] Create Supabase project in dashboard.
+- [ ] Add local `.env` values:
+  - [ ] `NEXT_PUBLIC_SUPABASE_URL`
+  - [ ] `NEXT_PUBLIC_SUPABASE_ANON_KEY`
+  - [ ] `SUPABASE_SERVICE_ROLE_KEY`
+- [ ] Apply SQL migration `supabase/migrations/20260523_001_init.sql` in Supabase SQL editor.
+- [ ] Verify tables exist: `audits`, `leads`, `events`.
+- [ ] Manual data path check:
+  - [ ] Submit one audit and verify row in `audits`.
+  - [ ] Submit one lead and verify row in `leads`.
+- [ ] Create Resend account and configure sender/domain.
+- [ ] Add email env values:
+  - [ ] `RESEND_API_KEY`
+  - [ ] `RESEND_FROM_EMAIL`
+- [ ] Create AI provider key (Anthropic preferred or OpenAI).
+- [ ] Add AI env value(s):
+  - [ ] `ANTHROPIC_API_KEY` or `OPENAI_API_KEY`
+- [ ] Set `NEXT_PUBLIC_APP_URL` for local and production.
+- [ ] Link GitHub repo to Vercel project.
+- [ ] Add all production env vars in Vercel project settings.
+- [ ] Confirm `.env` is gitignored and `.env.example` is up to date.
+
 ### Phase D2: Database + Backend Implementation (Next Priority)
 - [x] Prepare Supabase env var contract (`NEXT_PUBLIC_SUPABASE_URL`, `NEXT_PUBLIC_SUPABASE_ANON_KEY`, `SUPABASE_SERVICE_ROLE_KEY`).
 - [x] Add SQL migration for `audits`, `leads`, and optional `events` tables.

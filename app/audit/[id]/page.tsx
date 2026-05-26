@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useMemo, useState } from "react";
+import { use, useEffect, useMemo, useState } from "react";
 import { AiSummaryCard } from "@/components/audit/ai-summary-card";
 import { LeadCaptureForm } from "@/components/audit/lead-capture-form";
 import { PriorityActionQueue } from "@/components/audit/priority-action-queue";
@@ -10,7 +10,7 @@ import { SiteFooter } from "@/components/layout/site-footer";
 import { SiteHeader } from "@/components/layout/site-header";
 import { Recommendation } from "@/types/audit";
 
-type AuditPageProps = { params: { id: string } };
+type AuditPageProps = { params: Promise<{ id: string }> };
 type AuditPayload = {
   id: string;
   publicId: string;
@@ -21,6 +21,7 @@ type AuditPayload = {
 };
 
 export default function AuditResultPage({ params }: AuditPageProps) {
+  const { id } = use(params);
   const [data, setData] = useState<AuditPayload | null>(null);
   const [loading, setLoading] = useState(true);
 
@@ -28,7 +29,7 @@ export default function AuditResultPage({ params }: AuditPageProps) {
     async function loadAudit() {
       try {
         setLoading(true);
-        const res = await fetch(`/api/audit/${params.id}`);
+        const res = await fetch(`/api/audit/${id}`);
         const json = await res.json();
         if (!res.ok) throw new Error("fetch failed");
         setData(json.data);
@@ -37,7 +38,7 @@ export default function AuditResultPage({ params }: AuditPageProps) {
       }
     }
     loadAudit();
-  }, [params.id]);
+  }, [id]);
 
   const recommendations = useMemo(() => data?.auditPayload?.output?.recommendations ?? [], [data]);
   const totalMonthlySavings = data?.totalMonthlySavings ?? 0;
@@ -73,7 +74,7 @@ export default function AuditResultPage({ params }: AuditPageProps) {
     <div className="min-h-screen bg-slate-50 text-slate-900">
       <SiteHeader />
       <main className="mx-auto grid w-full max-w-6xl gap-5 px-4 py-8 sm:px-6 lg:px-8">
-        <p className="text-xs font-medium uppercase tracking-wide text-slate-500">Audit ID: {params.id}</p>
+        <p className="text-xs font-medium uppercase tracking-wide text-slate-500">Audit ID: {id}</p>
         <SavingsHero totalMonthlySavings={totalMonthlySavings} totalAnnualSavings={totalAnnualSavings} />
         <PriorityActionQueue items={recommendations} />
         <RecommendationTable items={recommendations} />

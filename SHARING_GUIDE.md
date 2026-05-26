@@ -37,3 +37,5 @@
 2. Search repo for accidental secrets before push.
 3. Confirm required root files are present.
 
+## Delete Before Final Submission
+- `FIVE_DAY_EXECUTION_PLAN.md` (temporary personal planning file; not part of required deliverables)

@@ -1,9 +1,10 @@
 import { fail, ok } from "@/lib/api/response";
 import { getAuditByPublicId } from "@/lib/db/repositories";
 
-export async function GET(_: Request, { params }: { params: { publicId: string } }) {
+export async function GET(_: Request, { params }: { params: Promise<{ publicId: string }> }) {
   try {
-    const row = await getAuditByPublicId(params.publicId);
+    const { publicId } = await params;
+    const row = await getAuditByPublicId(publicId);
     return ok({
       publicId: row.public_id,
       totalMonthlySpend: row.total_monthly_spend,
