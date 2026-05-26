@@ -17,7 +17,7 @@ It defines a clear domain persona ("expert SaaS spend optimization advisor"), se
 
 ## Fallback Summary Strategy
 **When fallback is used:**  
-- When no external AI keys (`ANTHROPIC_API_KEY` or `OPENAI_API_KEY`) are present in `.env`.
+- When no Gemini API key (`GEMINI_API_KEY`) is present in `.env`.
 - When the remote API fails due to rate limits or invalid requests.
 - When the remote API response exceeds the client-enforced 4.5-second timeout (to maintain Next.js response speeds).
 

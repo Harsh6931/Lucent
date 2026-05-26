@@ -35,54 +35,42 @@ ${body.recommendations.map(r => `- Tool: ${r.tool}, Plan: ${r.currentPlan}, Acti
 }
 
 async function callAI(systemPrompt: string, userPrompt: string, signal: AbortSignal): Promise<string> {
-  const anthropicKey = process.env.ANTHROPIC_API_KEY;
+  const geminiKey = process.env.GEMINI_API_KEY;
+  if (!geminiKey) throw new Error("No Gemini API key configured");
 
-  if (anthropicKey) {
-    const res = await fetch("https://api.anthropic.com/v1/messages", {
-      method: "POST",
-      headers: {
-        "x-api-key": anthropicKey,
-        "anthropic-version": "2023-06-01",
-        "content-type": "application/json",
-      },
-      body: JSON.stringify({
-        model: "claude-3-5-sonnet-20241022",
-        max_tokens: 200,
-        system: systemPrompt,
-        messages: [{ role: "user", content: userPrompt }],
-      }),
-      signal,
-    });
-    if (!res.ok) throw new Error(`Anthropic API returned status ${res.status}`);
-    const json = await res.json();
-    const text = json.content?.[0]?.text;
-    if (!text) throw new Error("Empty response from Anthropic");
-    return text.trim();
-  }
-
-  const openaiKey = process.env.OPENAI_API_KEY;
-  if (!openaiKey) throw new Error("No AI key configured");
-
-  const res = await fetch("https://api.openai.com/v1/chat/completions", {
+  const res = await fetch(`https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash:generateContent?key=${geminiKey}`, {
     method: "POST",
     headers: {
-      "Authorization": `Bearer ${openaiKey}`,
-      "Content-Type": "application/json",
+      "Content-Type": "application/json"
     },
     body: JSON.stringify({
-      model: "gpt-4o-mini",
-      max_tokens: 200,
-      messages: [
-        { role: "system", content: systemPrompt },
-        { role: "user", content: userPrompt }
+      contents: [
+        {
+          parts: [
+            {
+              text: userPrompt
+            }
+          ]
+        }
       ],
+      systemInstruction: {
+        parts: [
+          {
+            text: systemPrompt
+          }
+        ]
+      },
+      generationConfig: {
+        maxOutputTokens: 200
+      }
     }),
-    signal,
+    signal
   });
-  if (!res.ok) throw new Error(`OpenAI API returned status ${res.status}`);
+
+  if (!res.ok) throw new Error(`Gemini API returned status ${res.status}`);
   const json = await res.json();
-  const text = json.choices?.[0]?.message?.content;
-  if (!text) throw new Error("Empty response from OpenAI");
+  const text = json.candidates?.[0]?.content?.parts?.[0]?.text;
+  if (!text) throw new Error("Empty response from Gemini");
   return text.trim();
 }
 
@@ -94,7 +82,7 @@ export async function POST(request: Request) {
     return fail("VALIDATION_ERROR", "Invalid payload.", 400);
   }
 
-  if (!process.env.ANTHROPIC_API_KEY && !process.env.OPENAI_API_KEY) {
+  if (!process.env.GEMINI_API_KEY) {
     return ok({ summary: getFallbackSummary(body), fallbackUsed: true });
   }
 

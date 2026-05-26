@@ -127,16 +127,16 @@ Users input their AI tools, plans, spend, and usage context, then receive an ins
 - [x] Manual data path check:
   - [x] Submit one audit and verify row in `audits`.
   - [x] Submit one lead and verify row in `leads`.
-- [x] Create Resend account and configure sender/domain.
-- [x] Add email env values:
-  - [x] `RESEND_API_KEY`
-  - [x] `RESEND_FROM_EMAIL`
-- [x] Create AI provider key (Anthropic preferred or OpenAI).
-- [x] Add AI env value(s):
-  - [x] `ANTHROPIC_API_KEY` or `OPENAI_API_KEY`
-- [x] Set `NEXT_PUBLIC_APP_URL` for local and production.
+- [ ] Create Resend account and configure sender/domain.
+- [ ] Add email env values:
+  - [ ] `RESEND_API_KEY`
+  - [ ] `RESEND_FROM_EMAIL`
+- [ ] Create AI provider key (Anthropic preferred or OpenAI).
+- [ ] Add AI env value(s):
+  - [ ] `ANTHROPIC_API_KEY` or `OPENAI_API_KEY`
+- [ ] Set `NEXT_PUBLIC_APP_URL` to `https://lucent-rose.vercel.app` for production.
 - [x] Link GitHub repo to Vercel project.
-- [x] Add all production env vars in Vercel project settings.
+- [ ] Add all production env vars in Vercel project settings.
 - [x] Confirm `.env` is gitignored and `.env.example` is up to date.
 
 ### Phase D2: Database + Backend Implementation (Next Priority)
@@ -162,8 +162,8 @@ Users input their AI tools, plans, spend, and usage context, then receive an ins
 - [x] Ensure CI runs lint + tests on push to `main`.
 - [x] Perform mobile/accessibility/performance polish.
 - [x] Run Lighthouse and fix major issues to target thresholds.
-- [x] Deploy to Vercel.
-- [x] Perform end-to-end production validation.
+- [ ] Deploy to Vercel.
+- [ ] Perform end-to-end production validation.
 
 ### Phase G: Assignment Deliverables
 - [x] Finalize `README.md` (summary, quick start, decisions, deployed URL, media links).
@@ -186,11 +186,11 @@ Users input their AI tools, plans, spend, and usage context, then receive an ins
 - [x] **AI API failure case:** fallback summary visible; core audit unaffected.
 
 ## 8) Acceptance Criteria (Definition of Done)
-- [x] All six assignment MVP features work on deployed URL.
+- [ ] All six assignment MVP features work on deployed URL.
 - [x] Form state persists across reloads.
 - [x] Audit logic is explainable and numerically consistent.
 - [x] Personalized summary works with graceful fallback.
-- [x] Leads are stored and confirmation emails send successfully.
+- [ ] Leads are stored and confirmation emails send successfully. (Pending Resend key config in Vercel)
 - [x] Share page is public, clean, and PII-free.
 - [x] At least 5 audit-engine tests pass.
 - [x] CI is green on latest `main` commit.

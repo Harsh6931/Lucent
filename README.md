@@ -42,4 +42,4 @@ npm.cmd run dev -- -p 3001
 5. **Backend-first persistence with Supabase:** practical path to real storage and production-ready CRUD without overbuilding infrastructure.
 
 ## Deployed URL
-[https://lucent-spend.vercel.app](https://lucent-spend.vercel.app) *(Note: Please update this with your actual live Vercel URL after deployment)*
+[https://lucent-rose.vercel.app](https://lucent-rose.vercel.app)
