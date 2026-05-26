@@ -1,0 +1,16 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 80" fill="none">
+  {/* Connections (Lines) */}
+  <line x1="50" y1="68" x2="20" y2="40" stroke="#8c8c8c" stroke-width="6.5" stroke-linecap="round" stroke-linejoin="round" />
+  <line x1="50" y1="68" x2="80" y2="40" stroke="#8c8c8c" stroke-width="6.5" stroke-linecap="round" stroke-linejoin="round" />
+  <line x1="50" y1="68" x2="50" y2="28" stroke="#13b1a8" stroke-width="6.5" stroke-linecap="round" stroke-linejoin="round" />
+  <line x1="50" y1="28" x2="34" y2="12" stroke="#8c8c8c" stroke-width="6.5" stroke-linecap="round" stroke-linejoin="round" />
+  <line x1="50" y1="28" x2="66" y2="12" stroke="#13b1a8" stroke-width="6.5" stroke-linecap="round" stroke-linejoin="round" />
+
+  {/* Nodes (Circles) */}
+  <circle cx="50" cy="68" r="8.5" fill="#8c8c8c" />
+  <circle cx="20" cy="40" r="8.5" fill="#8c8c8c" />
+  <circle cx="80" cy="40" r="8.5" fill="#8c8c8c" />
+  <circle cx="50" cy="28" r="8.5" fill="#13b1a8" />
+  <circle cx="34" cy="12" r="8.5" fill="#8c8c8c" />
+  <circle cx="66" cy="12" r="8.5" fill="#13b1a8" />
+</svg>

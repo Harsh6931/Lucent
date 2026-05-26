@@ -19,6 +19,9 @@ export const metadata: Metadata = {
   },
   description:
     "Lucent analyzes your AI tool stack, flags plan mismatches, and estimates monthly and annual savings with clear reasoning. Free, no login required.",
+  icons: {
+    icon: "/icon.svg",
+  },
   keywords: ["SaaS spend", "AI tools audit", "startup savings", "Cursor", "Copilot", "ChatGPT"],
   openGraph: {
     type: "website",
