@@ -1,6 +1,7 @@
 "use client";
 
 import { use, useEffect, useMemo, useState } from "react";
+import Link from "next/link";
 import { AiSummaryCard } from "@/components/audit/ai-summary-card";
 import { LeadCaptureForm } from "@/components/audit/lead-capture-form";
 import { PriorityActionQueue } from "@/components/audit/priority-action-queue";
@@ -14,6 +15,8 @@ type AuditPageProps = { params: Promise<{ id: string }> };
 type AuditPayload = {
   id: string;
   publicId: string;
+  teamSize: number;
+  primaryUseCase: string;
   totalMonthlySpend: number;
   totalMonthlySavings: number;
   totalAnnualSavings: number;
