@@ -13,15 +13,25 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v4
 
-      - name: TODO: Add runtime setup
-        run: echo "Add Node/Python setup as needed"
+      - name: Setup Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: 18
+          cache: 'npm'
 
-      - name: TODO: Add install
-        run: echo "Add dependency install command"
+      - name: Install dependencies
+        run: npm ci
 
-      - name: TODO: Add lint
-        run: echo "Add lint command"
+      - name: Run lint
+        run: npm run lint
 
-      - name: TODO: Add tests
-        run: echo "Add test command"
+      - name: Run tests
+        run: npm run test
+
+      - name: Run build
+        env:
+          NEXT_PUBLIC_SUPABASE_URL: "https://example.supabase.co"
+          NEXT_PUBLIC_SUPABASE_ANON_KEY: "dummy-key"
+          SUPABASE_SERVICE_ROLE_KEY: "dummy-service-role-key"
+        run: npm run build
 

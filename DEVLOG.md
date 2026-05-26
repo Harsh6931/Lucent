@@ -14,19 +14,19 @@
 **Blockers / what I'm stuck on:** None.  
 **Plan for tomorrow:** Day 3 features (Confidence Assumption Notes, AI Personalized Summary route, and Resend transactional email integration).
 
-## Day 3 -- YYYY-MM-DD
-**Hours worked:** X  
-**What I did:** ...  
-**What I learned:** ...  
-**Blockers / what I'm stuck on:** ...  
-**Plan for tomorrow:** ...
+## Day 3 -- 2026-05-26
+**Hours worked:** 4  
+**What I did:** Implemented confidence assumption notes on engine recommendation logic and updated the recommendation table UI to show them for medium/low confidence items. Created `POST /api/summary` API route with Anthropic/OpenAI support, 4.5s abort timeout, and robust fallback template. Updated the audit page to fetch and render the real AI summary. Integrated Resend in `POST /api/lead` to send transaction lead verification emails in a fail-safe manner. Cleaned up code duplication in route files and fixed potential numeric crash paths.  
+**What I learned:** AbortController is highly reliable for managing AI API timeouts. Making transactional emails non-blocking (failing silently but logging) prevents SMTP or API outages from breaking critical lead capture functionality.  
+**Blockers / what I'm stuck on:** None.  
+**Plan for tomorrow:** Day 4 (Share Metadata + CI + Quality).
 
-## Day 4 -- YYYY-MM-DD
-**Hours worked:** X  
-**What I did:** ...  
-**What I learned:** ...  
-**Blockers / what I'm stuck on:** ...  
-**Plan for tomorrow:** ...
+## Day 4 -- 2026-05-26
+**Hours worked:** 2  
+**What I did:** Refactored the public report route `/r/[publicId]` to a Next.js Server Component page that generates dynamic Open Graph and Twitter SEO metadata and queries report data directly from the Supabase database. Delegated rendering to a child client component `PublicReportClient.tsx`, optimizing page load speed and crawler indexing. Updated `.github/workflows/ci.yml` with proper Node setup, dependency installation, lint checks, test suites, and production build checks with mocked env variables.  
+**What I learned:** Mixing Server and Client components in Next.js is highly effective: Server Components handle SEO/database operations, and Client Components handle dynamic interactive client logic. Mocking required env vars in CI build steps prevents Next.js compiler environment validation failures.  
+**Blockers / what I'm stuck on:** None.  
+**Plan for tomorrow:** Day 5 (Hardening final documents, pricing validation, history check, and live Vercel deployment).
 
 ## Day 5 -- YYYY-MM-DD
 **Hours worked:** X  
