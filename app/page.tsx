@@ -66,18 +66,34 @@ export default function HomePage() {
         </section>
 
         <section id="faq" className="mx-auto w-full max-w-6xl px-4 pb-12 sm:px-6 lg:px-8">
+          <h2 className="mb-4 text-xl font-semibold text-slate-900">Frequently Asked Questions</h2>
           <div className="space-y-3">
             {[
-              "Do I need an account to use Lucent?",
-              "Are recommendations AI-generated guesses?",
-              "Can I share reports publicly?",
-              "What if I am already optimized?"
-            ].map((q) => (
+              {
+                q: "Do I need an account to use Lucent?",
+                a: "No account, no sign-up, no password. Fill in your AI tool stack, hit Generate Audit, and see your full results instantly. We only ask for your email after you have already seen your savings report and even that is completely optional."
+              },
+              {
+                q: "Are recommendations AI-generated guesses?",
+                a: "No, every savings figure comes from a deterministic, rule based audit engine that compares your reported spend against real published pricing for Cursor, Copilot, Claude, ChatGPT, OpenAI API, Anthropic API, Gemini and Windsurf. The math is transparent and reproducible. AI (Google Gemini) is only used to write the personalised summary paragraph, the numbers behind it are never AI generated. Each recommendation also carries a confidence label (High / Medium / Low) with an explanation note."
+              },
+              {
+                q: "Can I share reports publicly?",
+                a: "Yes, every audit gets a unique shareable link that is safe to send to your team, CFO, or investors. The public view strips all personal identifiers — no email, company name, or role is ever exposed. Only the savings figures and tool recommendations are visible."
+              },
+              {
+                q: "What if I am already optimized?",
+                a: "We will tell you exactly that. If your stack is well-matched to your team size and usage, Lucent returns an honest result with zero savings opportunity, no upsell, no inflated numbers. Each recommendation includes a confidence label so you can see why we reached that conclusion. Re-run the audit any time your team grows or you add a new tool."
+              },
+              {
+                q: "Is my spending data stored or sold?",
+                a: "Your input data is used only to calculate your audit result and is stored in our database tied to an anonymous audit ID.Its never linked to your name, company or email unless you optionally submit the lead form afterwards. We do not sell, share or use your data for advertising. The public share link exposes only savings figures, not your spend inputs. You can treat the audit as fully disposable. There is no account to delete."
+              }
+
+            ].map(({ q, a }) => (
               <details key={q} className="rounded-lg border border-slate-200 bg-white p-4">
                 <summary className="cursor-pointer text-sm font-semibold text-slate-900">{q}</summary>
-                <p className="mt-2 text-sm text-slate-600">
-                  Lucent is designed for transparent recommendations and practical next steps based on your current stack.
-                </p>
+                <p className="mt-2 text-sm leading-relaxed text-slate-600">{a}</p>
               </details>
             ))}
           </div>
