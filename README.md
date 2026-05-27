@@ -139,6 +139,22 @@ Open [http://localhost:3000](http://localhost:3000) in your browser.
 
 ---
 
+## 🧮 Core Audit Engine & Reasoning Flow
+
+The core audit engine evaluates user stacks deterministically using standard software cost logic (as defined in [AUDIT_LOGIC_POLICY.md]. Here is how the engine determines recommendations:
+
+```mermaid
+graph TD
+    A[Start Tool Audit] --> B(Calculate Modeled Current Cost)
+    B --> C{cheaperOption:<br/>Is there a cheaper plan<br/>from the same vendor?}
+    C -- Yes --> D[Propose Same-Vendor Downgrade]
+    C -- No --> E{crossVendor:<br/>Does user's use-case alternative<br/>save >= 20% cost?}
+    E -- Yes --> F[Propose Cross-Vendor Alternative]
+    E -- No --> G{modeledCurrent < currentMonthly?}
+    G -- Yes --> H[Propose Right-Sizing Current Usage]
+    G -- No --> I[Keep Current Plan / No Action]
+```
+
 ## 🏗 Architecture Decisions
 
 | Decision | Rationale |
