@@ -13,34 +13,51 @@ type SummaryRequestBody = {
 const DEFAULT_GEMINI_MODEL = "gemini-2.5-flash";
 
 const SYSTEM_PROMPT =
-  "You are Lucent, an expert SaaS spend optimization advisor. Summarize the spend audit in one concise, professional paragraph of 80 to 100 words. Do not use markdown bullet points or lists. Mention total current spend, potential monthly savings, and highlight the single most impactful recommendation to action. Do not invent savings or details not present in the audit payload.";
+  "You are Lucent, an expert SaaS spend optimization advisor. Write one polished paragraph of 2 to 4 complete sentences, around 70 to 110 words. Mention total current spend, potential monthly and annual savings, and the single most impactful recommendation. Do not use markdown bullets. Do not invent savings or details not present in the audit payload. Always finish the final sentence.";
 
-function getFallbackSummary(data: SummaryRequestBody): string {
+function asNumber(value: number | string | null | undefined): number {
+  const parsed = Number(value);
+  return Number.isFinite(parsed) ? parsed : 0;
+}
+
+function money(value: number | string | null | undefined): string {
+  return asNumber(value).toFixed(2);
+}
+
+export function getFallbackSummary(data: SummaryRequestBody): string {
   const { teamSize, totalMonthlySpend, totalMonthlySavings, totalAnnualSavings, recommendations } = data;
+  const monthlySavings = asNumber(totalMonthlySavings);
 
-  if (!recommendations?.length || totalMonthlySavings <= 0) {
-    return `Your AI spend audit shows an efficient configuration. For a team of ${teamSize}, your total monthly spend is $${totalMonthlySpend.toFixed(2)}. No immediate optimizations are recommended right now, but it is worth rechecking monthly as vendor pricing and credits change.`;
+  if (!recommendations?.length || monthlySavings <= 0) {
+    return `Your AI spend audit shows an efficient configuration for a team of ${teamSize}. Current monthly AI spend is $${money(totalMonthlySpend)}, and Lucent did not find a defensible savings opportunity from the submitted stack. Keep the current setup for now, but recheck monthly because AI vendor pricing, credits, and team usage can change quickly.`;
   }
 
-  const topRec = [...recommendations].sort((a, b) => b.monthlySavings - a.monthlySavings)[0];
+  const sorted = [...recommendations].sort((a, b) => asNumber(b.monthlySavings) - asNumber(a.monthlySavings));
+  const topRec = sorted[0];
+  const secondRec = sorted[1];
+  const secondSentence = secondRec
+    ? ` A secondary opportunity is "${secondRec.action}" for ${secondRec.tool}, which adds another $${money(secondRec.monthlySavings)}/mo in potential savings.`
+    : "";
 
-  return `Your audit shows potential savings of $${totalMonthlySavings.toFixed(2)}/mo, or $${totalAnnualSavings.toFixed(2)}/yr, on a total monthly AI spend of $${totalMonthlySpend.toFixed(2)} for a team of ${teamSize}. The highest-impact action is "${topRec.action}" for ${topRec.tool}, which could save about $${topRec.monthlySavings.toFixed(2)}/mo. Start with high-confidence recommendations, then revisit medium-confidence items once usage data is clearer.`;
+  return `Your audit found $${money(monthlySavings)}/mo in potential savings, or $${money(totalAnnualSavings)}/yr, against current monthly AI spend of $${money(totalMonthlySpend)} for a team of ${teamSize}. The highest-impact action is "${topRec.action}" for ${topRec.tool}, which could save about $${money(topRec.monthlySavings)}/mo.${secondSentence} Start with the highest-confidence items first, then revisit medium-confidence recommendations once usage data is clearer.`;
 }
 
 function buildUserPrompt(body: SummaryRequestBody): string {
   const recLines = body.recommendations
     .map(
       (r) =>
-        `Tool: ${r.tool}; Plan: ${r.currentPlan}; Action: ${r.action}; Reason: ${r.reason}; Savings: $${r.monthlySavings}/mo; Confidence: ${r.confidence}`
+        `Tool: ${r.tool}; Plan: ${r.currentPlan}; Action: ${r.action}; Reason: ${r.reason}; Savings: $${money(
+          r.monthlySavings
+        )}/mo; Confidence: ${r.confidence}`
     )
     .join("\n");
 
   return [
     `Team size: ${body.teamSize}`,
     `Primary use case: ${body.primaryUseCase}`,
-    `Total monthly spend: $${body.totalMonthlySpend}`,
-    `Total monthly savings: $${body.totalMonthlySavings}`,
-    `Total annual savings: $${body.totalAnnualSavings}`,
+    `Total monthly spend: $${money(body.totalMonthlySpend)}`,
+    `Total monthly savings: $${money(body.totalMonthlySavings)}`,
+    `Total annual savings: $${money(body.totalAnnualSavings)}`,
     "Recommendations:",
     recLines || "No recommendations."
   ].join("\n");
@@ -67,8 +84,8 @@ async function callGemini(userPrompt: string, signal: AbortSignal): Promise<stri
       contents: [{ role: "user", parts: [{ text: userPrompt }] }],
       systemInstruction: { parts: [{ text: SYSTEM_PROMPT }] },
       generationConfig: {
-        temperature: 0.3,
-        maxOutputTokens: 220
+        temperature: 0.35,
+        maxOutputTokens: 320
       }
     }),
     signal
@@ -83,6 +100,13 @@ async function callGemini(userPrompt: string, signal: AbortSignal): Promise<stri
   const text = json.candidates?.[0]?.content?.parts?.map((part: { text?: string }) => part.text ?? "").join("").trim();
   if (!text) throw new Error("Empty Gemini response");
   return text;
+}
+
+export function isCompleteUsefulSummary(summary: string): boolean {
+  const trimmed = summary.trim();
+  const sentenceCount = (trimmed.match(/[.!?](\s|$)/g) ?? []).length;
+  const wordCount = trimmed.split(/\s+/).filter(Boolean).length;
+  return trimmed.length >= 180 && wordCount >= 35 && sentenceCount >= 2 && /[.!?]$/.test(trimmed);
 }
 
 export async function POST(request: Request) {
@@ -103,6 +127,9 @@ export async function POST(request: Request) {
 
   try {
     const summary = await callGemini(buildUserPrompt(body), controller.signal);
+    if (!isCompleteUsefulSummary(summary)) {
+      return ok({ summary: getFallbackSummary(body), fallbackUsed: true, reason: "ai_summary_too_short" });
+    }
     return ok({ summary, fallbackUsed: false, model: getGeminiModelName() });
   } catch (error) {
     console.error("AI summary failed, using fallback:", error);
@@ -111,4 +138,3 @@ export async function POST(request: Request) {
     clearTimeout(timeoutId);
   }
 }
-
