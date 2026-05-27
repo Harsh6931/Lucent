@@ -28,5 +28,15 @@ Thumbs.db
 .vscode/
 .idea/
 
-# temporary planning docs (remove before final submission)
+# internal planning & spec docs (not required by assignment)
 FIVE_DAY_EXECUTION_PLAN.md
+SHARING_GUIDE.md
+AUDIT_LOGIC_POLICY.md
+FRONTEND_FLOW_SPEC.md
+UI_THEME_SPEC.md
+
+# confidential assignment brief
+*.pdf
+
+# temporary scripts
+scripts/
