@@ -11,7 +11,8 @@ To resolve this, I thoroughly inspected the Next.js 15 migration guide and updat
 This approach eliminated all compilation and hydration warnings, ensuring a clean static generation build with zero errors.
 
 ## 2) A decision I reversed mid-week, and why
-Mid-week, I reversed the implementation strategy for the public report share page (`/r/[publicId]`). Originally, the route was coded as a client-side component (`"use client"`) that triggered a secondary `fetch()` request to `/api/report/[publicId]` within a React `useEffect` hook to display the saved SaaS spend figures.
+The decision i reversed first was a change of UI plan in middle to something simple and plain in order to highlight the core of the build more prominently to the visitor.
+Mid-week, I also reversed the implementation strategy for the public report share page (`/r/[publicId]`). Originally, the route was coded as a client-side component (`"use client"`) that triggered a secondary `fetch()` request to `/api/report/[publicId]` within a React `useEffect` hook to display the saved SaaS spend figures.
 
 While this worked for standard user interaction, I realized it introduced a major product flaw: it was impossible to inject dynamic social preview metadata (Open Graph and Twitter Card tags). In Next.js, client-side pages cannot export `generateMetadata` functions because metadata must be computed on the server before HTML is sent. Social media crawlers (like Slack, Twitter, and LinkedIn scrapers) do not execute JavaScript; they would only read our generic homepage tags, showing no savings figures to external viewers.
 
@@ -31,8 +32,8 @@ I utilized the Antigravity AI pair programming assistant to accelerate developme
 - **Research**: I used the built-in search tool to pull live pricing data for tools like Cursor and Copilot to confirm rates and construct official links, ensuring our audit recommendations match reality.
 
 ## 5) Self-rating (1-10) with one-sentence reason each
-- **Discipline (9/10)**: Followed the 5-day execution plan step-by-step, committed code incrementally, and ran quality builds after every change.
-- **Code quality (9/10)**: Extracted reusable helpers, handled all TypeScript interfaces explicitly, and ensured zero linter errors remain.
-- **Design sense (8/10)**: Applied modern, clean glassmorphic components using a consistent Slate/Blue palette, though minor additions like interactive graphs would enrich it further.
+- **Discipline (9/10)**: Currently on a travel trip still followed the 5 day execution plan step-by-step, committed code incrementally, and ran quality builds after every change.
+- **Code quality (7/10)**: Use LLM model and AI agent to write code but at the end try to optimize the code as much as possible also try to refer section of code for future reference.
+- **Design sense (8/10)**: Opted for Simple UI to have User focus on main MVP but can apply modern, clean glassmorphic components using a consistent Slate/Blue palette, with  minor additions like interactive graphs would enrich it further.
 - **Problem-solving (9/10)**: Handled dynamic API timeouts cleanly with abort triggers and resolved Next.js compilation issues quickly.
 - **Entrepreneurial thinking (9/10)**: Structured the funnel to capture leads only *after* showing real financial value, optimizing customer trust and conversion.

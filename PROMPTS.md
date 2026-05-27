@@ -12,8 +12,8 @@ You are Lucent, an expert SaaS spend optimization advisor. Summarize the spend a
 It defines a clear domain persona ("expert SaaS spend optimization advisor"), sets precise length boundaries (80 to 100 words), forbids bullet points/lists to maintain a neat single-paragraph UI card layout, and instructs the model to anchor its summary in exact numeric totals (current spend, potential savings) and identify the top priority item to maximize immediate actionability.
 
 **What I tried that did not work:**  
-- Leaving formatting unrestricted often produced multi-line markdown lists or headers, which overflowed the UI design.
-- Omiting the length constraint caused some model outputs to exceed 200 words, introducing unnecessary fluff about standard SaaS pricing which diluted the user's focus.
+- Leaving formatting unrestricted often produced multi line markdown lists or headers, which overflowed the UI design.
+- Omiting the length constraint cause some model outputs to exceed 200+ words, introducing unnecessary weight  diverts the user focus.
 
 ## Fallback Summary Strategy
 **When fallback is used:**  
